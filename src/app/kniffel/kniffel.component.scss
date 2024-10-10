@@ -1,14 +1,25 @@
-:host {
-    color: darkgreen;
-  }
-
-h2  {
-    color: white;
-    background-color: grey;
-  }
-
-
 tr  {
     color: black;
-    background-color: lightcyan;
   }
+
+
+td {
+    padding: 5px;
+}
+
+.sum-title-cell, .sum-point-cell {
+    background-color: lightblue;
+}
+
+.field-title-cell, .field-point-cell {
+    background-color: lightgrey;
+}
+
+.sum-title-cell, .field-title-cell{
+    width: 200px;
+}
+
+.sum-point-cell, .field-point-cell{
+    width: 30px;
+    text-align: right; 
+}

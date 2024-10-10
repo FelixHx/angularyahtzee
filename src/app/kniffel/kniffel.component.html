@@ -1,8 +1,15 @@
-<h2>Yahtzee</h2>
 <table>
-  <tr *ngFor="let field of fields"
-    [style.background-color]="field.sum?'lightgrey':null">
-    <td width=" 150">{{field.title}}&nbsp;</td>
-    <td width=" 40" align="right"><div *ngIf="field.points != null" >{{field.points}}</div></td>
+  <tr *ngFor="let field of fields" >
+    <td *ngIf="field.sum" class="field-title-cell">{{field.title}}</td>
+    <td *ngIf="!field.sum" class="sum-title-cell">{{field.title}}</td>
+    <td *ngIf="field.sum" class="field-point-cell">{{field.points}}</td>
+    <td *ngIf="!field.sum" class="sum-point-cell"><div *ngIf="field.points != null" >{{field.points}}</div></td>
   </tr>
 </table>
+
+<img class="logo" src="img/1.gif">
+<img class="logo" src="img/2.gif">
+<img class="logo" src="img/3.gif">
+<img class="logo" src="img/4.gif">
+<img class="logo" src="img/5.gif">
+<img class="logo" src="img/6.gif">
