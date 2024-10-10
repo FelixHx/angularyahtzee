@@ -8,10 +8,10 @@ import { NgFor, NgIf } from '@angular/common';
 
 export class KniffelApiService {
   fields : Row[] =[
-    {short: "1", title:"Twos", points:null, sum:false},
-    {short: "2", title:"Aces", points: 3, sum:false},
+    {short: "1", title:"Aces", points: 3, sum:false},
+    {short: "2", title:"Twos", points:null, sum:false},
     {short: "3", title:"Threes", points: null, sum:false},
-    {short: "4", title:"Fours", points: null, sum:false},
+    {short: "4", title:"Fours", points: 16, sum:false},
     {short: "5", title:"Fives", points: 20, sum:false},
     {short: "6", title:"Sixes", points: 24, sum:false},
     {short: "T", title:"Total", points: null, sum:true},
@@ -29,11 +29,11 @@ export class KniffelApiService {
     {short: "GT", title:"Grand Total", points: null, sum:true}  ]  ;
 
   getAll()  : Row[] {
-    var pointsT = 0;
-    var pointsB = 0;
-    var pointsTU = 0;
-    var pointsTL = 0;
-    var pointsGT = 0;
+    var pointsT:number = 0;
+    var pointsB:number = 0;
+    var pointsTU:number = 0;
+    var pointsTL:number = 0;
+    var pointsGT:number = 0;
 
     pointsT = pointsT+ (this.fields.find( ({ short }) => short === '1' )?.points || 0);
     pointsT = pointsT+ (this.fields.find( ({ short }) => short === '2' )?.points || 0);
