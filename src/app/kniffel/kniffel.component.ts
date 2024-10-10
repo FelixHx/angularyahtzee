@@ -11,7 +11,7 @@ import { KniffelApiService } from '../kniffel-api.service';
 })
 export class KniffelComponent {
 
-  fields : {title: string,  points: number | null}[] =[];
+  fields : {short: string, title: string,  points: number | null, sum: boolean}[] =[];
   
   constructor(private kniffelApiService : KniffelApiService) {
     this.fields = this.kniffelApiService.getAll();
