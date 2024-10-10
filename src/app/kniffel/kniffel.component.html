@@ -1,0 +1,7 @@
+<h2>Yahtzee</h2>
+<table>
+  <tr *ngFor="let field of fields">
+    <td>{{field.title}}&nbsp;</td>
+    <td><div *ngIf="field.points != null" >{{field.points}}</div></td>
+  </tr>
+</table>
