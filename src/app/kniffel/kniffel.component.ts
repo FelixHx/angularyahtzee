@@ -18,5 +18,8 @@ export class KniffelComponent {
     this.fields = this.kniffelApiService.getAll();
   };
 
+  rollDice():void {
+    console.log("Roll Dice");
+  }
 };
 
