@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
+import { Row } from './kniffel/row';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class KniffelApiService {
-  fields : {short: string,title: string,  points: number | null, sum: boolean}[] =[
+  fields : Row[] =[
     {short: "1", title:"Twos", points:null, sum:false},
     {short: "2", title:"Aces", points: 3, sum:false},
     {short: "3", title:"Threes", points: null, sum:false},
@@ -26,7 +27,7 @@ export class KniffelApiService {
     {short: "TU", title:"Total Upper", points: null, sum:true},
     {short: "GT", title:"Grand Total", points: null, sum:true}  ]  ;
 
-  getAll()  :   {short: string,title: string,  points: number | null, sum: boolean}[] {
+  getAll()  : Row[] {
     return this.fields;
   }
 

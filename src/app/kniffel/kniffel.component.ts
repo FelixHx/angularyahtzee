@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
+import { Row } from '../kniffel/row';
 import { KniffelApiService } from '../kniffel-api.service';
 
 @Component({
@@ -11,7 +12,7 @@ import { KniffelApiService } from '../kniffel-api.service';
 })
 export class KniffelComponent {
 
-  fields : {short: string, title: string,  points: number | null, sum: boolean}[] =[];
+  fields : Row[] =[];
   
   constructor(private kniffelApiService : KniffelApiService) {
     this.fields = this.kniffelApiService.getAll();
