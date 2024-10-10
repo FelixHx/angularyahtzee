@@ -5,26 +5,26 @@ import { Injectable } from '@angular/core';
 })
 
 export class KniffelApiService {
-  fields : {title: string,  points: number | null}[] =[
-    {title:"Aces", points: 3},
-    {title:"Twos", points:null},
-    {title:"Threes", points: null},
-    {title:"Fours", points: null},
-    {title:"Fives", points: 20},
-    {title:"Sixes", points: null},
-    {title:"Total", points: null},
-    {title:"Bonus", points: null},
-    {title:"Total Upper", points: null},
-    {title:"Three of a Kind", points: null},
-    {title:"Four of a Kind", points: null},
-    {title:"Full House", points: 25},
-    {title:"Small Straight", points: null},
-    {title:"Large Straight", points: 40},
-    {title:"Yahtzee", points: null},
-    {title:"Chance", points: null},
-    {title:"Total Lower", points: null},
-    {title:"Total Upper", points: null},
-    {title:"Grand Total", points: null}  ]  ;
+  fields : {short: string,title: string,  points: number | null, sum: boolean}[] =[
+    {short: "", title:"Twos", points:null, sum:false},
+    {short: "", title:"Aces", points: 3, sum:false},
+    {short: "", title:"Threes", points: null, sum:false},
+    {short: "", title:"Fours", points: null, sum:false},
+    {short: "", title:"Fives", points: 20, sum:false},
+    {short: "", title:"Sixes", points: null, sum:false},
+    {short: "", title:"Total", points: null, sum:true},
+    {short: "", title:"Bonus", points: null, sum:true},
+    {short: "", title:"Total Upper", points: null, sum:true},
+    {short: "", title:"Three of a Kind", points: null, sum:false},
+    {short: "", title:"Four of a Kind", points: null, sum:false},
+    {short: "", title:"Full House", points: 25, sum:false},
+    {short: "", title:"Small Straight", points: null, sum:false},
+    {short: "", title:"Yahtzee", points: null, sum:false},
+    {short: "", title:"Large Straight", points: 40, sum:false},
+    {short: "", title:"Chance", points: null, sum:false},
+    {short: "", title:"Total Lower", points: null, sum:true},
+    {short: "", title:"Total Upper", points: null, sum:true},
+    {short: "", title:"Grand Total", points: null, sum:true}  ]  ;
 
   getAll()  :  {title: string,  points: number | null}[] {
     return this.fields;
