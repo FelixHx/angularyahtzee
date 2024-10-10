@@ -1,10 +1,12 @@
 <table>
-  <tr *ngFor="let field of fields" >
-    <td *ngIf="field.sum" class="field-title-cell">{{field.title}}</td>
-    <td *ngIf="!field.sum" class="sum-title-cell">{{field.title}}</td>
-    <td *ngIf="field.sum" class="field-point-cell">{{field.points}}</td>
-    <td *ngIf="!field.sum" class="sum-point-cell"><div *ngIf="field.points != null" >{{field.points}}</div></td>
-  </tr>
+  <tbody>
+    <tr *ngFor="let field of fields" >
+      <td *ngIf="field.sum" class="field-title-cell">{{field.title}}</td>
+      <td *ngIf="!field.sum" class="sum-title-cell">{{field.title}}</td>
+      <td *ngIf="field.sum" class="field-point-cell">{{field.points}}</td>
+      <td *ngIf="!field.sum" class="sum-point-cell"><div *ngIf="field.points != null" >{{field.points}}</div></td>
+    </tr>
+  </tbody>
 </table>
 
 <img class="logo" src="img/1.gif">

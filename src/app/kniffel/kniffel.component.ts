@@ -19,7 +19,7 @@ export class KniffelComponent {
   };
 
   rollDice():void {
-    console.log("Roll Dice");
-  }
+    console.log("Roll Dice Fallera");
+  };
 };
 
