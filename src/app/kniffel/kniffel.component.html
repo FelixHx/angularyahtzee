@@ -1,6 +1,7 @@
 <h2>Yahtzee</h2>
 <table>
-  <tr *ngFor="let field of fields">
+  <tr *ngFor="let field of fields"
+    [style.background-color]="field.sum?'lightgrey':null">
     <td>{{field.title}}&nbsp;</td>
     <td><div *ngIf="field.points != null" >{{field.points}}</div></td>
   </tr>
