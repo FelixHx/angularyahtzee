@@ -2,7 +2,7 @@
 <table>
   <tr *ngFor="let field of fields"
     [style.background-color]="field.sum?'lightgrey':null">
-    <td>{{field.title}}&nbsp;</td>
-    <td><div *ngIf="field.points != null" >{{field.points}}</div></td>
+    <td width=" 150">{{field.title}}&nbsp;</td>
+    <td width=" 40" align="right"><div *ngIf="field.points != null" >{{field.points}}</div></td>
   </tr>
 </table>
