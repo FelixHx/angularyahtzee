@@ -1,6 +1,6 @@
-tr  {
+tr {
     color: black;
-  }
+}
 
 
 td {
@@ -8,19 +8,23 @@ td {
     height: 20px
 }
 
-.sum-title-cell, .sum-point-cell {
+.sum-title-cell,
+.sum-point-cell {
     background-color: lightblue;
 }
 
-.field-title-cell, .field-point-cell {
+.field-title-cell,
+.field-point-cell {
     background-color: lightgrey;
 }
 
-.sum-title-cell, .field-title-cell{
+.sum-title-cell,
+.field-title-cell {
     width: 200px;
 }
 
-.sum-point-cell, .field-point-cell{
+.sum-point-cell,
+.field-point-cell {
     width: 40px;
-    text-align: right; 
+    text-align: right;
 }

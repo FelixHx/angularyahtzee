@@ -1,18 +1,22 @@
 <table>
   <tbody>
-    <tr *ngFor="let field of fields" >
+    <tr *ngFor="let field of fields">
       <td *ngIf="field.sum" class="field-title-cell">{{field.title}}</td>
       <td *ngIf="!field.sum" class="sum-title-cell">{{field.title}}</td>
       <td *ngIf="field.sum" class="field-point-cell">{{field.points}}</td>
       <td *ngIf="!field.sum" class="sum-point-cell">
-        <div *ngIf="field.points != null" >{{field.points}}</div>
-        <div *ngIf="field.points == null" ><button (click)="field.points=points(field.id, dices); rollNumber=0; rollDices();">{{points(field.id, dices)}}</button></div>
+        <div *ngIf="field.points != null">{{field.points}}</div>
+        <div *ngIf="field.points == null"><button
+            (click)="field.points=points(field.id, dices); rollNumber=0; rollDices();">{{points(field.id,
+            dices)}}</button></div>
       </td>
     </tr>
   </tbody>
 </table>
-
-<img *ngFor="let dice of dices; let  i = index" src="img/{{dice.val}}{{dice.fixed ? 'fixed' : '' }}.gif" (click)="switchFixed(i)">
-Roll #{{rollNumber}}
-<br/>
+<div *ngIf="rollNumber>0">
+  <img *ngFor="let dice of dices; let  i = index" src="img/{{dice.val}}{{dice.fixed ? 'fixed' : '' }}.gif"
+    (click)="switchFixed(i)">
+  Roll #{{rollNumber}}
+</div>
+<br />
 <button *ngIf="rollNumber<3" (click)="rollDices()">Roll Dice</button>
