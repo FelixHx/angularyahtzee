@@ -12,5 +12,5 @@ import { KniffelComponent } from "./kniffel/kniffel.component";
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  title = 'hello-world';
+  title = 'Kniffel';
 }

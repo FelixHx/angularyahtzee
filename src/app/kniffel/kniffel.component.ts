@@ -20,6 +20,7 @@ export class KniffelComponent {
 
   rollDice():void {
     console.log("Roll Dice Fallera");
+    this.kniffelApiService.setPoints("FH");
   };
 };
 
