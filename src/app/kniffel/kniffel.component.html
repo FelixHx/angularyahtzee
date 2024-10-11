@@ -12,7 +12,10 @@
   </tbody>
 </table>
 
-<img *ngFor="let dice of dices" src="img/{{dice}}.gif">
+<img *ngFor="let dice of dices" src="img/{{dice.val}}.gif">
 
 <br/>
 <button (click)="rollDice()">Roll Dice</button>
+
+<hr/>
+<!--div *ngFor="let diceFixed of dicesFixed"> {{diceFixed?"true":"false"}} </div-->
