@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
-import { Row } from './row';
-import { Dice } from './dice';
+import { Row } from '../yahtzee/row';
+import { Dice } from '../yahtzee/dice';
 import { YahtzeeApiService } from '../yahtzee-api.service';
 
 @Component({
@@ -63,9 +63,8 @@ export class YahtzeeComponent {
     { val: 0, fixed: false }
   ];
 
-  switchFixed(i: number): void {
+  toggleFixed(i: number): void {
     this.dices[i].fixed = !this.dices[i].fixed;
-    //console.log(i);
   }
 
   score(field: Row) {
@@ -75,7 +74,6 @@ export class YahtzeeComponent {
   }
 
   rollDices(): void {
-    this.yahtzeeApiService.getAll();
     if (this.rollNumber == 0) this.dices.forEach(function (value) { value.fixed = false; })
     this.dices.forEach(function (value) {
       if (!value.fixed) value.val = Math.floor((Math.random() * 6) + 1);

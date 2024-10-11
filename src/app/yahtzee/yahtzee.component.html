@@ -12,8 +12,8 @@
   </tbody>
 </table>
 <div *ngIf="rollNumber>0">
-  <img *ngFor="let dice of dices; let  i = index" src="img/{{dice.val}}{{dice.fixed ? 'fixed' : '' }}.gif"
-    (click)="switchFixed(i)">
+  <img *ngFor="let dice of dices; let i = index" src="img/{{dice.val}}{{dice.fixed ? 'fixed' : '' }}.gif"
+    (click)="toggleFixed(i)">
   Roll #{{rollNumber}}
 </div>
 <div>
