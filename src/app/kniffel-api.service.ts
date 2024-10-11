@@ -8,18 +8,18 @@ import { NgFor, NgIf } from '@angular/common';
 
 export class KniffelApiService {
   fields : Row[] =[
-    {id: "1", title:"Aces", points: 3, sum:false},
-    {id: "2", title:"Twos", points:null, sum:false},
+    {id: "1", title:"Aces", points: null, sum:false},
+    {id: "2", title:"Twos", points: null, sum:false},
     {id: "3", title:"Threes", points: null, sum:false},
-    {id: "4", title:"Fours", points: 16, sum:false},
-    {id: "5", title:"Fives", points: 20, sum:false},
-    {id: "6", title:"Sixes", points: 24, sum:false},
+    {id: "4", title:"Fours", points: null, sum:false},
+    {id: "5", title:"Fives", points: null, sum:false},
+    {id: "6", title:"Sixes", points: null, sum:false},
     {id: "T", title:"Total", points: null, sum:true},
     {id: "B", title:"Bonus", points: null, sum:true},
     {id: "TU", title:"Total Upper", points: null, sum:true},
     {id: "3K", title:"Three of a Kind", points: null, sum:false},
     {id: "4K", title:"Four of a Kind", points: null, sum:false},
-    {id: "FH", title:"Full House", points: 25, sum:false},
+    {id: "FH", title:"Full House", points: null, sum:false},
     {id: "SS", title:"Small Straight", points: null, sum:false},
     {id: "LS", title:"Large Straight", points: 40, sum:false},
     {id: "Y", title:"Yahtzee", points: null, sum:false},
@@ -61,13 +61,6 @@ export class KniffelApiService {
       if (val.id == "GT" ) val.points=pointsGT; 
     }
     return this.fields;
-  }
-
-  setPoints(id: string) {
-    for (var val of this.fields) {
-      if (val.id == id ) val.points=42; 
-    }
-
   }
 
   constructor() { }

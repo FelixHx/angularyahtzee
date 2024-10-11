@@ -6,24 +6,13 @@
       <td *ngIf="field.sum" class="field-point-cell">{{field.points}}</td>
       <td *ngIf="!field.sum" class="sum-point-cell">
         <div *ngIf="field.points != null" >{{field.points}}</div>
-        <div *ngIf="field.points == null" ><button (click)="field.points=42; ">42</button></div>
+        <div *ngIf="field.points == null" ><button (click)="field.points=points(field.id, dices); rollDice();">{{points(field.id, dices)}}</button></div>
       </td>
     </tr>
   </tbody>
 </table>
 
-<img class="logo" src="img/1.gif">
-<img class="logo" src="img/2.gif">
-<img class="logo" src="img/3.gif">
-<img class="logo" src="img/4.gif">
-<img class="logo" src="img/5.gif">
-<img class="logo" src="img/6.gif">
-<br/>
-<img class="logo" src="img/1fixed.gif">
-<img class="logo" src="img/2fixed.gif">
-<img class="logo" src="img/3fixed.gif">
-<img class="logo" src="img/4fixed.gif">
-<img class="logo" src="img/5fixed.gif">
-<img class="logo" src="img/6fixed.gif">
+<img *ngFor="let dice of dices" src="img/{{dice}}.gif">
+
 <br/>
 <button (click)="rollDice()">Roll Dice</button>
