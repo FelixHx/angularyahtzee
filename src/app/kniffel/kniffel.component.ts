@@ -20,8 +20,7 @@ export class KniffelComponent {
     this.fields = this.kniffelApiService.getAll();
   };
 
-
-  points(fieldId: string, dices: Dice[]): number {
+  points(field: Row, dices: Dice[]): number {
     var sum = 0;
     var histogramm = [0, 0, 0, 0, 0, 0];
 
@@ -32,24 +31,24 @@ export class KniffelComponent {
     var maxHist = Math.max.apply(null, histogramm);
 
     dices.forEach(function (value) {
-      if (fieldId == "1" && value.val == 1) sum += value.val;
-      if (fieldId == "2" && value.val == 2) sum += value.val;
-      if (fieldId == "3" && value.val == 3) sum += value.val;
-      if (fieldId == "4" && value.val == 4) sum += value.val;
-      if (fieldId == "5" && value.val == 5) sum += value.val;
-      if (fieldId == "6" && value.val == 6) sum += value.val;
-      if (fieldId == "3K" && maxHist >= 3) sum += value.val;
-      if (fieldId == "4K" && maxHist >= 4) sum += value.val;
-      if (fieldId == "FH" && maxHist >= 3 && (histogramm.includes(3) && histogramm.includes(2) || maxHist == 5)) sum = 25;
-      if (fieldId == "SS" &&
+      if (field.id == "1" && value.val == 1) sum += value.val;
+      if (field.id == "2" && value.val == 2) sum += value.val;
+      if (field.id == "3" && value.val == 3) sum += value.val;
+      if (field.id == "4" && value.val == 4) sum += value.val;
+      if (field.id == "5" && value.val == 5) sum += value.val;
+      if (field.id == "6" && value.val == 6) sum += value.val;
+      if (field.id == "3K" && maxHist >= 3) sum += value.val;
+      if (field.id == "4K" && maxHist >= 4) sum += value.val;
+      if (field.id == "FH" && maxHist >= 3 && (histogramm.includes(3) && histogramm.includes(2) || maxHist == 5)) sum = 25;
+      if (field.id == "SS" &&
         (
           (histogramm[0] > 0 && histogramm[1] > 0 && histogramm[2] > 0 && histogramm[3] > 0) ||
           (histogramm[1] > 0 && histogramm[2] > 0 && histogramm[3] > 0 && histogramm[4] > 0) ||
           (histogramm[2] > 0 && histogramm[3] > 0 && histogramm[4] > 0 && histogramm[5] > 0)
         )) sum = 30;
-      if (fieldId == "LS" && maxHist == 1 && histogramm[0] + histogramm[5] == 1) sum = 40;
-      if (fieldId == "Y" && maxHist == 5) sum = 50;
-      if (fieldId == "CH") sum += value.val;
+      if (field.id == "LS" && maxHist == 1 && histogramm[0] + histogramm[5] == 1) sum = 40;
+      if (field.id == "Y" && maxHist == 5) sum = 50;
+      if (field.id == "CH") sum += value.val;
     })
     return sum;
   }
@@ -67,6 +66,12 @@ export class KniffelComponent {
   switchFixed(i: number): void {
     this.dices[i].fixed = !this.dices[i].fixed;
     //console.log(i);
+  }
+
+  score(field: Row) {
+    field.points = this.points(field, this.dices);
+    this.rollNumber = 0;
+    this.rollDices();
   }
 
   rollDices(): void {
