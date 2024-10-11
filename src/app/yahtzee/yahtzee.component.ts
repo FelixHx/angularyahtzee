@@ -33,26 +33,24 @@ export class YahtzeeComponent {
     var maxHist = Math.max.apply(null, histogramm);
     console.log(maxHist);
 
-    this.fields.forEach(function (field) {
-      if (field.id == "1") field.optPoints = histogramm[0];
-      if (field.id == "2") field.optPoints = histogramm[1] * 2;
-      if (field.id == "3") field.optPoints = histogramm[2] * 3;
-      if (field.id == "4") field.optPoints = histogramm[3] * 4;
-      if (field.id == "5") field.optPoints = histogramm[4] * 5;
-      if (field.id == "6") field.optPoints = histogramm[5] * 6;
-      if (field.id == "3K") if (maxHist >= 3) field.optPoints = sum; else field.optPoints = 0;
-      if (field.id == "4K") if (maxHist >= 4) field.optPoints = sum; else field.optPoints = 0;
-      if (field.id == "FH") if (maxHist >= 3 && (histogramm.includes(3) && histogramm.includes(2) || maxHist == 5)) field.optPoints = 25; else field.optPoints = 0;
-      if (field.id == "SS") if (
-        (
-          (histogramm[0] > 0 && histogramm[1] > 0 && histogramm[2] > 0 && histogramm[3] > 0) ||
-          (histogramm[1] > 0 && histogramm[2] > 0 && histogramm[3] > 0 && histogramm[4] > 0) ||
-          (histogramm[2] > 0 && histogramm[3] > 0 && histogramm[4] > 0 && histogramm[5] > 0)
-        )) field.optPoints = 30; else field.optPoints = 0;
-      if (field.id == "LS") if (maxHist == 1 && histogramm[0] + histogramm[5] == 1) field.optPoints = 40; else field.optPoints = 0;
-      if (field.id == "Y") if (maxHist == 5) field.optPoints = 50; else field.optPoints = 0;
-      if (field.id == "CH") field.optPoints = sum;
-    })
+    this.fields[0].optPoints = histogramm[0];
+    this.fields[1].optPoints = histogramm[1] * 2;
+    this.fields[2].optPoints = histogramm[2] * 3;
+    this.fields[3].optPoints = histogramm[3] * 4;
+    this.fields[4].optPoints = histogramm[4] * 5;
+    this.fields[5].optPoints = histogramm[5] * 6;
+    if (maxHist >= 3) this.fields[9].optPoints = sum; else this.fields[9].optPoints = 0;
+    if (maxHist >= 4) this.fields[10].optPoints = sum; else this.fields[10].optPoints = 0;
+    if (maxHist >= 3 && (histogramm.includes(3) && histogramm.includes(2) || maxHist == 5)) this.fields[11].optPoints = 25; else this.fields[11].optPoints = 0;
+    if (
+      (
+        (histogramm[0] > 0 && histogramm[1] > 0 && histogramm[2] > 0 && histogramm[3] > 0) ||
+        (histogramm[1] > 0 && histogramm[2] > 0 && histogramm[3] > 0 && histogramm[4] > 0) ||
+        (histogramm[2] > 0 && histogramm[3] > 0 && histogramm[4] > 0 && histogramm[5] > 0)
+      )) this.fields[12].optPoints = 30; else this.fields[12].optPoints = 0;
+    if (maxHist == 1 && histogramm[0] + histogramm[5] == 1) this.fields[13].optPoints = 40; else this.fields[13].optPoints = 0;
+    if (maxHist == 5) this.fields[13].optPoints = 50; else this.fields[14].optPoints = 0;
+    this.fields[15].optPoints = sum;
   }
 
   rollNumber: number = 0;
