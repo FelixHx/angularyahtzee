@@ -54,6 +54,8 @@ export class KniffelComponent {
     return sum;
   }
 
+  rollNumber : number = 0;
+
   dices : Dice[] = [
     {val: 0, fixed: false},
     {val: 0, fixed: false},
@@ -62,13 +64,20 @@ export class KniffelComponent {
     {val: 0, fixed: false}
   ];
 
-  rollDice():void {
+  switchFixed(i: number):void {
+    this.dices[i].fixed = !this.dices[i].fixed;
+    //console.log(i);
+  }
+
+  rollDices():void {
     this.kniffelApiService.getAll();
     //console.log("Roll Dice Fallera");
     //console.log(Math.floor((Math.random() * 6) + 1));
     this.dices.forEach(function (value){
-      value.val = Math.floor((Math.random() * 6) + 1);
+      if (!value.fixed) value.val = Math.floor((Math.random() * 6) + 1);
     })
+    if (this.rollNumber==0) this.dices.forEach(function (value){value.fixed=false;})
+    this.rollNumber++;
   }
 };
 
