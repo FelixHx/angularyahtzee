@@ -15,6 +15,7 @@ export class KniffelComponent {
   fields : Row[] =[];
   
   constructor(private kniffelApiService : KniffelApiService) {
+    this.kniffelApiService.init();
     this.fields = this.kniffelApiService.getAll();
   };
 
@@ -34,6 +35,7 @@ export class KniffelComponent {
   dices : number[] = [5,5,6,2,1];
 
   rollDice():void {
+    this.kniffelApiService.getAll();
     //console.log("Roll Dice Fallera");
     //console.log(Math.floor((Math.random() * 6) + 1));
     this.dices = [
