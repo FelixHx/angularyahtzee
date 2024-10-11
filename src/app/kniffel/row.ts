@@ -1,5 +1,5 @@
 export interface Row {
-  short: string, 
+  id: string, 
   title: string, 
   points: number | null,
   sum: boolean

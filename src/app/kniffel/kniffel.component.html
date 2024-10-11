@@ -6,7 +6,7 @@
       <td *ngIf="field.sum" class="field-point-cell">{{field.points}}</td>
       <td *ngIf="!field.sum" class="sum-point-cell">
         <div *ngIf="field.points != null" >{{field.points}}</div>
-        <div *ngIf="field.points == null" ><button (click)="field.points=42;">42</button></div>
+        <div *ngIf="field.points == null" ><button (click)="field.points=42; ">42</button></div>
       </td>
     </tr>
   </tbody>
