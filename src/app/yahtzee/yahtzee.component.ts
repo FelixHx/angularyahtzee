@@ -20,37 +20,39 @@ export class YahtzeeComponent {
     this.fields = this.yahtzeeApiService.getAll();
   };
 
-  points(field: Row, dices: Dice[]): number {
+  points(dices: Dice[]) {
     var sum = 0;
     var histogramm = [0, 0, 0, 0, 0, 0];
 
-    dices.forEach(function (value) {
-      histogramm[value.val - 1]++;
+    dices.forEach(function (dice) {
+      histogramm[dice.val - 1]++;
+      sum += dice.val;
     })
+    console.log(sum);
 
     var maxHist = Math.max.apply(null, histogramm);
+    console.log(maxHist);
 
-    dices.forEach(function (value) {
-      if (field.id == "1" && value.val == 1) sum += value.val;
-      if (field.id == "2" && value.val == 2) sum += value.val;
-      if (field.id == "3" && value.val == 3) sum += value.val;
-      if (field.id == "4" && value.val == 4) sum += value.val;
-      if (field.id == "5" && value.val == 5) sum += value.val;
-      if (field.id == "6" && value.val == 6) sum += value.val;
-      if (field.id == "3K" && maxHist >= 3) sum += value.val;
-      if (field.id == "4K" && maxHist >= 4) sum += value.val;
-      if (field.id == "FH" && maxHist >= 3 && (histogramm.includes(3) && histogramm.includes(2) || maxHist == 5)) sum = 25;
-      if (field.id == "SS" &&
+    this.fields.forEach(function (field) {
+      if (field.id == "1") field.optPoints = histogramm[0];
+      if (field.id == "2") field.optPoints = histogramm[1] * 2;
+      if (field.id == "3") field.optPoints = histogramm[2] * 3;
+      if (field.id == "4") field.optPoints = histogramm[3] * 4;
+      if (field.id == "5") field.optPoints = histogramm[4] * 5;
+      if (field.id == "6") field.optPoints = histogramm[5] * 6;
+      if (field.id == "3K") if (maxHist >= 3) field.optPoints = sum; else field.optPoints = 0;
+      if (field.id == "4K") if (maxHist >= 4) field.optPoints = sum; else field.optPoints = 0;
+      if (field.id == "FH") if (maxHist >= 3 && (histogramm.includes(3) && histogramm.includes(2) || maxHist == 5)) field.optPoints = 25; else field.optPoints = 0;
+      if (field.id == "SS") if (
         (
           (histogramm[0] > 0 && histogramm[1] > 0 && histogramm[2] > 0 && histogramm[3] > 0) ||
           (histogramm[1] > 0 && histogramm[2] > 0 && histogramm[3] > 0 && histogramm[4] > 0) ||
           (histogramm[2] > 0 && histogramm[3] > 0 && histogramm[4] > 0 && histogramm[5] > 0)
-        )) sum = 30;
-      if (field.id == "LS" && maxHist == 1 && histogramm[0] + histogramm[5] == 1) sum = 40;
-      if (field.id == "Y" && maxHist == 5) sum = 50;
-      if (field.id == "CH") sum += value.val;
+        )) field.optPoints = 30; else field.optPoints = 0;
+      if (field.id == "LS") if (maxHist == 1 && histogramm[0] + histogramm[5] == 1) field.optPoints = 40; else field.optPoints = 0;
+      if (field.id == "Y") if (maxHist == 5) field.optPoints = 50; else field.optPoints = 0;
+      if (field.id == "CH") field.optPoints = sum;
     })
-    return sum;
   }
 
   rollNumber: number = 0;
@@ -68,7 +70,7 @@ export class YahtzeeComponent {
   }
 
   score(field: Row) {
-    field.points = this.points(field, this.dices);
+    field.points = field.optPoints;
     this.rollNumber = 0;
     this.rollDices();
   }
@@ -79,6 +81,7 @@ export class YahtzeeComponent {
       if (!value.fixed) value.val = Math.floor((Math.random() * 6) + 1);
     })
     this.rollNumber++;
+    this.points(this.dices);
   }
 };
 
