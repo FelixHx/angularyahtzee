@@ -1,23 +1,23 @@
 import { Component } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
-import { Row } from '../kniffel/row';
-import { Dice } from '../kniffel/dice';
-import { KniffelApiService } from '../kniffel-api.service';
+import { Row } from './row';
+import { Dice } from './dice';
+import { YahtzeeApiService } from '../yahtzee-api.service';
 
 @Component({
-  selector: 'app-kniffel',
+  selector: 'app-yahtzee',
   standalone: true,
   imports: [NgFor, NgIf],
-  templateUrl: './kniffel.component.html',
-  styleUrl: './kniffel.component.scss'
+  templateUrl: './yahtzee.component.html',
+  styleUrl: './yahtzee.component.scss'
 })
-export class KniffelComponent {
+export class YahtzeeComponent {
 
   fields: Row[] = [];
 
-  constructor(private kniffelApiService: KniffelApiService) {
-    this.kniffelApiService.init();
-    this.fields = this.kniffelApiService.getAll();
+  constructor(private yahtzeeApiService: YahtzeeApiService) {
+    this.yahtzeeApiService.init();
+    this.fields = this.yahtzeeApiService.getAll();
   };
 
   points(field: Row, dices: Dice[]): number {
@@ -75,7 +75,7 @@ export class KniffelComponent {
   }
 
   rollDices(): void {
-    this.kniffelApiService.getAll();
+    this.yahtzeeApiService.getAll();
     if (this.rollNumber == 0) this.dices.forEach(function (value) { value.fixed = false; })
     this.dices.forEach(function (value) {
       if (!value.fixed) value.val = Math.floor((Math.random() * 6) + 1);

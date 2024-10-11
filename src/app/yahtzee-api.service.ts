@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { Row } from './kniffel/row';
+import { Row } from './yahtzee/row';
 import { NgFor, NgIf } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
 })
 
-export class KniffelApiService {
+export class YahtzeeApiService {
   fields: Row[] = [];
 
   init() {

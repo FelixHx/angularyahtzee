@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { KniffelApiService } from './kniffel-api.service';
+import { YahtzeeApiService } from './yahtzee-api.service';
 
-describe('KniffelApiService', () => {
-  let service: KniffelApiService;
+describe('YahtzeeApiService', () => {
+  let service: YahtzeeApiService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(KniffelApiService);
+    service = TestBed.inject(YahtzeeApiService);
   });
 
   it('should be created', () => {
