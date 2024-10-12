@@ -11,25 +11,25 @@ export class YahtzeeApiService {
 
   init() {
     this.fields = [
-      { id: "1", title: "Aces", points: null, sum: false },
-      { id: "2", title: "Twos", points: null, sum: false },
-      { id: "3", title: "Threes", points: null, sum: false },
-      { id: "4", title: "Fours", points: null, sum: false },
-      { id: "5", title: "Fives", points: null, sum: false },
-      { id: "6", title: "Sixes", points: null, sum: false },
-      { id: "T", title: "Total", points: null, sum: true },
-      { id: "B", title: "Bonus", points: null, sum: true },
-      { id: "TU", title: "Total Upper", points: null, sum: true },
-      { id: "3K", title: "Three of a Kind", points: null, sum: false },
-      { id: "4K", title: "Four of a Kind", points: null, sum: false },
-      { id: "FH", title: "Full House", points: null, sum: false },
-      { id: "SS", title: "Small Straight", points: null, sum: false },
-      { id: "LS", title: "Large Straight", points: null, sum: false },
-      { id: "Y", title: "Yahtzee", points: null, sum: false },
-      { id: "CH", title: "Chance", points: null, sum: false },
-      { id: "TL", title: "Total Lower", points: null, sum: true },
-      { id: "TU", title: "Total Upper", points: null, sum: true },
-      { id: "GT", title: "Grand Total", points: null, sum: true }]
+      { id: "1", title: "Aces", points: null, optPoints: null, sum: false },
+      { id: "2", title: "Twos", points: null, optPoints: null, sum: false },
+      { id: "3", title: "Threes", points: null, optPoints: null, sum: false },
+      { id: "4", title: "Fours", points: null, optPoints: null, sum: false },
+      { id: "5", title: "Fives", points: null, optPoints: null, sum: false },
+      { id: "6", title: "Sixes", points: null, optPoints: null, sum: false },
+      { id: "T", title: "Total", points: null, optPoints: null, sum: true },
+      { id: "B", title: "Bonus", points: null, optPoints: null, sum: true },
+      { id: "TU", title: "Total Upper", points: null, optPoints: null, sum: true },
+      { id: "3K", title: "Three of a Kind", points: null, optPoints: null, sum: false },
+      { id: "4K", title: "Four of a Kind", points: null, optPoints: null, sum: false },
+      { id: "FH", title: "Full House", points: null, optPoints: null, sum: false },
+      { id: "SS", title: "Small Straight", points: null, optPoints: null, sum: false },
+      { id: "LS", title: "Large Straight", points: null, optPoints: null, sum: false },
+      { id: "Y", title: "Yahtzee", points: null, optPoints: null, sum: false },
+      { id: "CH", title: "Chance", points: null, optPoints: null, sum: false },
+      { id: "TL", title: "Total Lower", points: null, optPoints: null, sum: true },
+      { id: "TU", title: "Total Upper", points: null, optPoints: null, sum: true },
+      { id: "GT", title: "Grand Total", points: null, optPoints: null, sum: true }]
   }
 
   getAll(): Row[] {
@@ -38,6 +38,7 @@ export class YahtzeeApiService {
     var pointsTU: number = 0;
     var pointsTL: number = 0;
     var pointsGT: number = 0;
+    console.log("kommt er hier vorbei?");
 
     pointsT = pointsT + (this.fields.find(({ id }) => id === '1')?.points || 0);
     pointsT = pointsT + (this.fields.find(({ id }) => id === '2')?.points || 0);
@@ -56,7 +57,7 @@ export class YahtzeeApiService {
     pointsTL = pointsTL + (this.fields.find(({ id }) => id === 'CH')?.points || 0);
     pointsGT = pointsTU + pointsTL;
 
-    //console.log(pointsTU);
+    console.log(pointsTU);
     for (var val of this.fields) {
       if (val.id == "T") val.points = pointsT;
       if (val.id == "B") val.points = pointsB;
