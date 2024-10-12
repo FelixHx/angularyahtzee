@@ -28,10 +28,10 @@ export class YahtzeeComponent {
       histogramm[dice.val - 1]++;
       sum += dice.val;
     })
-    console.log(sum);
+    //console.log(sum);
 
     var maxHist = Math.max.apply(null, histogramm);
-    console.log(maxHist);
+    //console.log(maxHist);
 
     this.fields[0].optPoints = histogramm[0];
     this.fields[1].optPoints = histogramm[1] * 2;
@@ -67,17 +67,21 @@ export class YahtzeeComponent {
     this.dices[i].fixed = !this.dices[i].fixed;
   }
 
-  score(field: Row) {
+  score(field: Row): void {
     field.points = field.optPoints;
     this.rollNumber = 0;
     this.rollDices();
   }
 
+  randomDice(): number { return Math.floor((Math.random() * 6) + 1) };
+
   rollDices(): void {
     if (this.rollNumber == 0) this.dices.forEach(function (value) { value.fixed = false; })
-    this.dices.forEach(function (value) {
-      if (!value.fixed) value.val = Math.floor((Math.random() * 6) + 1);
-    })
+
+    this.dices.forEach(dice => {
+      if (!dice.fixed) dice.val = this.randomDice();
+    });
+
     this.rollNumber++;
     this.points(this.dices);
   }
