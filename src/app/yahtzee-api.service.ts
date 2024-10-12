@@ -11,60 +11,50 @@ export class YahtzeeApiService {
 
   init() {
     this.fields = [
-      { id: "1", title: "Aces", points: null, optPoints: null, sum: false },
-      { id: "2", title: "Twos", points: null, optPoints: null, sum: false },
-      { id: "3", title: "Threes", points: null, optPoints: null, sum: false },
-      { id: "4", title: "Fours", points: null, optPoints: null, sum: false },
-      { id: "5", title: "Fives", points: null, optPoints: null, sum: false },
-      { id: "6", title: "Sixes", points: null, optPoints: null, sum: false },
-      { id: "T", title: "Total", points: null, optPoints: null, sum: true },
-      { id: "B", title: "Bonus", points: null, optPoints: null, sum: true },
-      { id: "TU", title: "Total Upper", points: null, optPoints: null, sum: true },
-      { id: "3K", title: "Three of a Kind", points: null, optPoints: null, sum: false },
-      { id: "4K", title: "Four of a Kind", points: null, optPoints: null, sum: false },
-      { id: "FH", title: "Full House", points: null, optPoints: null, sum: false },
-      { id: "SS", title: "Small Straight", points: null, optPoints: null, sum: false },
-      { id: "LS", title: "Large Straight", points: null, optPoints: null, sum: false },
-      { id: "Y", title: "Yahtzee", points: null, optPoints: null, sum: false },
-      { id: "CH", title: "Chance", points: null, optPoints: null, sum: false },
-      { id: "TL", title: "Total Lower", points: null, optPoints: null, sum: true },
-      { id: "TU", title: "Total Upper", points: null, optPoints: null, sum: true },
-      { id: "GT", title: "Grand Total", points: null, optPoints: null, sum: true }]
+      { title: "Aces", points: null, optPoints: null, sum: false },
+      { title: "Twos", points: null, optPoints: null, sum: false },
+      { title: "Threes", points: null, optPoints: null, sum: false },
+      { title: "Fours", points: null, optPoints: null, sum: false },
+      { title: "Fives", points: null, optPoints: null, sum: false },
+      { title: "Sixes", points: null, optPoints: null, sum: false },
+      { title: "Total", points: null, optPoints: null, sum: true },
+      { title: "Bonus", points: null, optPoints: null, sum: true },
+      { title: "Total Upper", points: null, optPoints: null, sum: true },
+      { title: "Three of a Kind", points: null, optPoints: null, sum: false },
+      { title: "Four of a Kind", points: null, optPoints: null, sum: false },
+      { title: "Full House", points: null, optPoints: null, sum: false },
+      { title: "Small Straight", points: null, optPoints: null, sum: false },
+      { title: "Large Straight", points: null, optPoints: null, sum: false },
+      { title: "Yahtzee", points: null, optPoints: null, sum: false },
+      { title: "Chance", points: null, optPoints: null, sum: false },
+      { title: "Total Lower", points: null, optPoints: null, sum: true },
+      { title: "Total Upper", points: null, optPoints: null, sum: true },
+      { title: "Grand Total", points: null, optPoints: null, sum: true }]
   }
 
   getAll(): Row[] {
-    var pointsT: number = 0;
-    var pointsB: number = 0;
-    var pointsTU: number = 0;
-    var pointsTL: number = 0;
-    var pointsGT: number = 0;
-    console.log("kommt er hier vorbei?");
+    this.fields[6].points = 0; // Total
+    this.fields[7].points = 0; // Bonus
+    this.fields[8].points = 0; // Total Upper
+    this.fields[17].points = 0; // Total Upper
+    this.fields[6].points += (this.fields[0]?.points || 0); // Aces
+    this.fields[6].points += (this.fields[1]?.points || 0); // Twos
+    this.fields[6].points += (this.fields[2]?.points || 0); // Threes
+    this.fields[6].points += (this.fields[3]?.points || 0); // Fours
+    this.fields[6].points += (this.fields[4]?.points || 0); // Fives
+    this.fields[6].points += (this.fields[5]?.points || 0); // Sixes
+    if (this.fields[6].points >= 63) this.fields[7].points = 35;
+    this.fields[8].points = this.fields[6].points + this.fields[7].points;
+    this.fields[17].points += (this.fields[9]?.points || 0); // Three of a Kind
+    this.fields[17].points += (this.fields[10]?.points || 0); // Four of a Kind
+    this.fields[17].points += (this.fields[11]?.points || 0); // Full House
+    this.fields[17].points += (this.fields[12]?.points || 0); // Small Street
+    this.fields[17].points += (this.fields[13]?.points || 0); // Large Street
+    this.fields[17].points += (this.fields[14]?.points || 0); // Yahtzee
+    this.fields[17].points += (this.fields[15]?.points || 0); // Chance
+    this.fields[16].points = this.fields[8].points; 
+    this.fields[18].points = this.fields[16].points + this.fields[17].points;
 
-    pointsT = pointsT + (this.fields.find(({ id }) => id === '1')?.points || 0);
-    pointsT = pointsT + (this.fields.find(({ id }) => id === '2')?.points || 0);
-    pointsT = pointsT + (this.fields.find(({ id }) => id === '3')?.points || 0);
-    pointsT = pointsT + (this.fields.find(({ id }) => id === '4')?.points || 0);
-    pointsT = pointsT + (this.fields.find(({ id }) => id === '5')?.points || 0);
-    pointsT = pointsT + (this.fields.find(({ id }) => id === '6')?.points || 0);
-    if (pointsT >= 63) pointsB = 35;
-    pointsTU = pointsT + pointsB;
-    pointsTL = pointsTL + (this.fields.find(({ id }) => id === '3K')?.points || 0);
-    pointsTL = pointsTL + (this.fields.find(({ id }) => id === '4K')?.points || 0);
-    pointsTL = pointsTL + (this.fields.find(({ id }) => id === 'FH')?.points || 0);
-    pointsTL = pointsTL + (this.fields.find(({ id }) => id === 'SS')?.points || 0);
-    pointsTL = pointsTL + (this.fields.find(({ id }) => id === 'LS')?.points || 0);
-    pointsTL = pointsTL + (this.fields.find(({ id }) => id === 'Y')?.points || 0);
-    pointsTL = pointsTL + (this.fields.find(({ id }) => id === 'CH')?.points || 0);
-    pointsGT = pointsTU + pointsTL;
-
-    console.log(pointsTU);
-    for (var val of this.fields) {
-      if (val.id == "T") val.points = pointsT;
-      if (val.id == "B") val.points = pointsB;
-      if (val.id == "TU") val.points = pointsTU;
-      if (val.id == "TL") val.points = pointsTL;
-      if (val.id == "GT") val.points = pointsGT;
-    }
     return this.fields;
   }
 

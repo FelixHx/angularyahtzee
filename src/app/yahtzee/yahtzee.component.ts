@@ -14,6 +14,8 @@ import { YahtzeeApiService } from '../yahtzee-api.service';
 export class YahtzeeComponent {
 
   fields: Row[] = [];
+  round: number = 0;
+  gameOver: boolean = false;
 
   constructor(private yahtzeeApiService: YahtzeeApiService) {
     this.yahtzeeApiService.init();
@@ -49,7 +51,7 @@ export class YahtzeeComponent {
         (histogramm[2] > 0 && histogramm[3] > 0 && histogramm[4] > 0 && histogramm[5] > 0)
       )) this.fields[12].optPoints = 30; else this.fields[12].optPoints = 0;
     if (maxHist == 1 && histogramm[0] + histogramm[5] == 1) this.fields[13].optPoints = 40; else this.fields[13].optPoints = 0;
-    if (maxHist == 5) this.fields[13].optPoints = 50; else this.fields[14].optPoints = 0;
+    if (maxHist == 5) this.fields[14].optPoints = 50; else this.fields[14].optPoints = 0;
     this.fields[15].optPoints = sum;
   }
 
@@ -72,9 +74,13 @@ export class YahtzeeComponent {
     this.rollNumber = 0;
     this.rollDices();
     this.fields = this.yahtzeeApiService.getAll();
+    this.round++;
+    this.gameOver = (this.round >= 13);
   }
 
   randomDice(): number { return Math.floor((Math.random() * 6) + 1) };
+  //randomDice(): number { return 4};
+
 
   rollDices(): void {
     if (this.rollNumber == 0) this.dices.forEach(function (value) { value.fixed = false; })
