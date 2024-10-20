@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NgFor, NgIf } from '@angular/common';
+import { NgFor, NgIf, NgForOf } from '@angular/common';
 import { Row } from '../yahtzee/row';
 import { Dice } from '../yahtzee/dice';
 import { YahtzeeApiService } from '../yahtzee-api.service';
@@ -7,7 +7,7 @@ import { YahtzeeApiService } from '../yahtzee-api.service';
 @Component({
   selector: 'app-yahtzee',
   standalone: true,
-  imports: [NgFor, NgIf],
+  imports: [NgFor, NgIf, NgForOf],
   templateUrl: './yahtzee.component.html',
   styleUrl: './yahtzee.component.scss'
 })

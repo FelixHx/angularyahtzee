@@ -3,9 +3,10 @@
     <div class="head1">Feld</div>
     <div class="head2">Alice</div>
     <div class="head2">Bob</div>
-    <div *ngFor="let field of fields">
+    <div *ngFor="let field of fields; let i=index;">
       <div *ngIf="!field.sum">
-        <div class="field1">{{field.title}}</div>
+        <div class="field1">{{field.title}} <ng-container *ngIf="i<7"><ng-container *ngFor="let j of [1,2,3]"><img
+                src="img/{{i+1}}.gif" width="16" height="16" /></ng-container></ng-container></div>
         <div class="leer" onclick="FieldClick(0,1)" id="f0-1"> </div>
         <div class="leer" onclick="FieldClick(1,1)" id="f1-1"> </div>
       </div>
