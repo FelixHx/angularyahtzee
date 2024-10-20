@@ -7,15 +7,15 @@
       <div *ngIf="!field.sum">
         <div class="field1">{{field.title}} <ng-container *ngIf="i<7"><ng-container *ngFor="let j of [1,2,3]"><img
                 src="img/{{i+1}}.gif" width="16" height="16" /></ng-container></ng-container></div>
-        <div *ngIf="field.points0==null" class="leer" (click)="score(field)" id="f0-1">{{field.points0}}</div>
-        <div *ngIf="field.points0!=null" class="field2" id="f0-1">{{field.points0}}</div>
-        <div *ngIf="field.points1==null" class="leer" (click)="score(field)" id="f1-1">{{field.points1}}</div>
-        <div *ngIf="field.points1!=null" class="field2" id="f1-1">{{field.points1}}</div>
+        <div *ngIf="field.points[0]==null" class="leer" (click)="score(0, field)" id="f0-1">{{field.points[0]}}</div>
+        <div *ngIf="field.points[0]!=null" class="field2" id="f0-1">{{field.points[0]}}</div>
+        <div *ngIf="field.points[1]==null" class="leer" (click)="score(1, field)" id="f1-1">{{field.points[1]}}</div>
+        <div *ngIf="field.points[1]!=null" class="field2" id="f1-1">{{field.points[1]}}</div>
       </div>
       <div *ngIf="field.sum">
         <div class="head1">{{field.title}}</div>
-        <div class="head2" id="f0-1">{{field.points0}}</div>
-        <div class="head2" id="f1-1">{{field.points1}}</div>
+        <div class="head2" id="f0-1">{{field.points[0]}}</div>
+        <div class="head2" id="f1-1">{{field.points[1]}}</div>
       </div>
     </div>
     <br>
