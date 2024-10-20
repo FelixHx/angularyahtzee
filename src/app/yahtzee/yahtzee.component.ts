@@ -7,7 +7,7 @@ import { YahtzeeApiService } from '../yahtzee-api.service';
 @Component({
   selector: 'app-yahtzee',
   standalone: true,
-  imports: [NgFor, NgIf, NgForOf],
+  imports: [NgFor, NgIf],
   templateUrl: './yahtzee.component.html',
   styleUrl: './yahtzee.component.scss'
 })

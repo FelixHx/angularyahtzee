@@ -17,18 +17,15 @@
       </div>
     </div>
     <br>
-    <div class="dicebox">
-      <img id="d0" src="" alt="" class="dice" onclick="DiceClick(0)">
-      <img id="d1" src="" alt="" class="dice" onclick="DiceClick(1)">
-      <img id="d2" src="" alt="" class="dice" onclick="DiceClick(2)">
-      <img id="d3" src="" alt="" class="dice" onclick="DiceClick(3)">
-      <img id="d4" src="" alt="" class="dice" onclick="DiceClick(4)">
+    <div>
+      <div class="dicebox">
+        <ng-container *ngFor="let dice of dices; let i = index">
+          <img class="dice" src="img/{{dice.val}}{{dice.fixed ? 'fixed' : '' }}.gif" (click)="toggleFixed(i)">&nbsp;
+        </ng-container>
+        <button *ngIf="rollNumber<3" (click)="rollDices()">Roll Dice</button>
+      </div>
     </div>
-    <div class="dicebox">
-      <input class="btn" value="Roll" onclick="RollDices()" type="button">(<span id="rl">2</span> times)<p></p>
-      <div id="statelink"><a href="index.html">Link to this state</a></div>
-      <div id="newgame"><a href="index.html">New Game</a></div>
-    </div>
+    <div *ngIf="gameOver">Game Over</div>
   </div>
   <div class="rightbox" id="auswahlen">
   </div>
