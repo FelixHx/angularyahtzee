@@ -1,25 +1,33 @@
-<table>
-  <tbody>
-    <tr *ngFor="let field of fields">
-      <td *ngIf="field.sum" class="field-title-cell">{{field.title}}</td>
-      <td *ngIf="!field.sum" class="sum-title-cell">{{field.title}}</td>
-      <td *ngIf="field.sum" class="field-point-cell">{{field.points}}</td>
-      <td *ngIf="!field.sum" class="sum-point-cell">
-        <div *ngIf="field.points != null">{{field.points}}</div>
-        <div *ngIf="field.points == null && field.optPoints != null"><button
-            (click)="score(field)">{{field.optPoints}}</button></div>
-      </td>
-    </tr>
-  </tbody>
-</table>
-<div *ngIf="!gameOver">
-  <div *ngIf="rollNumber>0">
-    <img *ngFor="let dice of dices; let i = index" src="img/{{dice.val}}{{dice.fixed ? 'fixed' : '' }}.gif"
-      (click)="toggleFixed(i)">
-    Roll #{{rollNumber}}
+<div class="mainbox">
+  <div class="leftbox">
+    <div class="head1">Feld</div>
+    <div class="head2">Alice</div>
+    <div class="head2">Bob</div>
+    <div *ngFor="let field of fields">
+      <div *ngIf="!field.sum">
+        <div class="field1">{{field.title}}</div>
+        <div class="leer" onclick="FieldClick(0,1)" id="f0-1"> </div>
+        <div class="leer" onclick="FieldClick(1,1)" id="f1-1"> </div>
+      </div>
+      <div *ngIf="field.sum">
+        <div class="head1">{{field.title}}</div>
+        <div class="head2" onclick="FieldClick(0,1)" id="f0-1"> </div>
+        <div class="head2" onclick="FieldClick(1,1)" id="f1-1"> </div>
+      </div>
+    </div>
+    <br>
+    <div class="dicebox">
+      <img id="d0" src="" alt="" class="dice" onclick="DiceClick(0)">
+      <img id="d1" src="" alt="" class="dice" onclick="DiceClick(1)">
+      <img id="d2" src="" alt="" class="dice" onclick="DiceClick(2)">
+      <img id="d3" src="" alt="" class="dice" onclick="DiceClick(3)">
+      <img id="d4" src="" alt="" class="dice" onclick="DiceClick(4)">
+    </div>
+    <div class="dicebox">
+      <input class="btn" value="Roll" onclick="RollDices()" type="button">(<span id="rl">2</span> times)<p></p>
+      <div id="statelink"><a href="index.html">Link to this state</a></div>
+      <div id="newgame"><a href="index.html">New Game</a></div>
+    </div>
   </div>
-  <div>
-    <button *ngIf="rollNumber<3" (click)="rollDices()">Roll Dice</button>
+  <div class="rightbox" id="auswahlen">
   </div>
-</div>
-<div *ngIf="gameOver">Game Over</div>

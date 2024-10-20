@@ -1,30 +1,41 @@
-tr {
-    color: black;
-}
+/* Boxes to divide whole page in Areas */
 
-
-td {
-    padding: 5px;
-    height: 23px
-}
-
-.sum-title-cell,
-.sum-point-cell {
-    background-color: lightblue;
-}
-
-.field-title-cell,
-.field-point-cell {
-    background-color: lightgrey;
-}
-
-.sum-title-cell,
-.field-title-cell {
-    width: 200px;
-}
-
-.sum-point-cell,
-.field-point-cell {
-    width: 40px;
-    text-align: right;
-}
+.mainbox, .leftbox, .rightbox {
+    margin: 0px 0px 0px 0px; 
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 0px;
+    min-height: 600px;
+  }
+  
+  .mainbox  { width: 500px; }
+  .leftbox  { width: 326px; float: left;  background-color: #CCCCCC; }
+  .rightbox { width: 172px; float: right; }
+  
+  /* Font (One font for the whole page) */
+  body { font-family:Helvetica,Arial,sans-serif; font-size:16px; }
+  
+  /* Width and Height of Fields */
+  .expectation, .maxexpectation, .head1, .head2, .field1,.field2, .leer {
+    margin-left: 4px; height: 20px; margin-top: 4px; margin-bottom: 0px;
+  }
+  .head1, .field1 { text-align:center; width:150px; float: left; }
+  .head2, .field2,.expectation,.maxexpectation, .leer { text-align:center; width:80px; float: left; }
+  
+  /* Background Colors */
+  .mainbox { background-color: #ffffff; }
+  .leer { background-color: #FFFFFF; }
+  .expectation    { background-color: #FFDDDD; color: #999999 }
+  .maxexpectation { background-color: #FFBBBB; color: #999999 }
+  .head1, .head2  { background-color: #77FF77; }
+  .field1,.field2 { background-color: #BBFFBB; }
+  
+  .roll, .field1, .field2 { cursor:hand; }
+  
+  .dicebox { margin-left: 4px; margin-top: 4px; text-align:center; width:234px;  float: left; }
+  .dice    { vertical-align:middle; cursor:hand; border:none; }
+  
+  .error { background-color:red; padding:8px 8px 8px 8px; width:75%;
+           border:outset 2px red; margin-top:12%; margin-bottom:12%; }
+  
+  
