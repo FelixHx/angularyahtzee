@@ -12,7 +12,7 @@ import { YahtzeeApiService } from '../yahtzee-api.service';
   styleUrl: './yahtzee.component.scss'
 })
 export class YahtzeeComponent {
-
+  currentPlayer: number = 0;
   fields: Row[] = [];
   round: number = 0;
   gameOver: boolean = false;
@@ -75,7 +75,10 @@ export class YahtzeeComponent {
     this.rollNumber = 0;
     this.rollDices();
     this.fields = this.yahtzeeApiService.getAll();
-    this.round++;
+    this.currentPlayer = 1 - this.currentPlayer;
+    if (this.currentPlayer == 0) { this.round++ };
+    console.log("currentPlayer" + this.currentPlayer);
+    console.log("round" + this.round);
     this.gameOver = (this.round >= 13);
   }
 
