@@ -32,7 +32,7 @@
       </div>
     </div>
     <br>
-    <div *ngIf="!gameOver" class="dicebox">
+    <div *ngIf="!gameOver" class="dicebox">{{rollNumber}}. Roll &nbsp;&nbsp;
       <ng-container *ngFor="let dice of dices; let i = index">
         <img class="dice" src="img/{{dice.val}}{{dice.fixed ? 'fixed' : '' }}.gif" (click)="toggleFixed(i)">&nbsp;
       </ng-container><br /><br />
