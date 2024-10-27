@@ -20,6 +20,7 @@ export class YahtzeeComponent {
   constructor(private yahtzeeApiService: YahtzeeApiService) {
     this.yahtzeeApiService.init();
     this.fields = this.yahtzeeApiService.getAll();
+    this.rollDices();
   };
 
   points(dices: Dice[]) {
@@ -57,7 +58,7 @@ export class YahtzeeComponent {
   }
 
   rollNumber: number = 0;
-
+ 
   dices: Dice[] = [
     { val: 0, fixed: false },
     { val: 0, fixed: false },
@@ -65,7 +66,7 @@ export class YahtzeeComponent {
     { val: 0, fixed: false },
     { val: 0, fixed: false }
   ];
-
+  
   toggleFixed(i: number): void {
     this.dices[i].fixed = !this.dices[i].fixed;
   }

@@ -1,36 +1,44 @@
 <div class="mainbox">
   <div class="leftbox">
-    <div class="head1">Feld</div>
+    <div class="head1">Field</div>
     <div class="head2">Alice</div>
     <div class="head2">Bob</div>
     <div *ngFor="let field of fields; let i=index;">
       <div *ngIf="!field.sum">
-        <div class="field1">{{field.title}} <ng-container *ngIf="i<7"><ng-container *ngFor="let j of [1,2,3]"><img
-                src="img/{{i+1}}.gif" width="16" height="16" /></ng-container></ng-container></div>
-        <div *ngIf="field.points[0]==null && currentPlayer==0" class="leer" (click)="score(0, field)" id="f0-1">
-          {{field.points[0]}}</div>
-        <div *ngIf="field.points[0]==null && currentPlayer==1" class="leer" >
-          {{field.points[0]}}</div>
-        <div *ngIf="field.points[0]!=null" class="field2" id="f0-1">{{field.points[0]}}</div>
-        <div *ngIf="field.points[1]==null  && currentPlayer==1 " class="leer" (click)="score(1, field)" id="f1-1">
-          {{field.points[1]}}</div>
-        <div *ngIf="field.points[1]==null  && currentPlayer==0 " class="leer" id="f1-1">{{field.points[1]}}</div>
-        <div *ngIf="field.points[1]!=null" class="field2" id="f1-1">{{field.points[1]}}</div>
+        <div class="field1">{{field.title}} <ng-container *ngIf="i<7"><ng-container *ngFor="let j of [1,2,3]">
+              <img src="img/{{i+1}}.gif" width="16" height="16" /></ng-container></ng-container>
+        </div>
+        <div *ngIf="field.points[0]==null && currentPlayer==0" class="leer" (click)="score(0, field)">
+          {{field.points[0]}}
+        </div>
+        <div *ngIf="field.points[0]==null && currentPlayer==1" class="leer">
+          {{field.points[0]}}
+        </div>
+        <div *ngIf="field.points[0]!=null" class="field2">
+          {{field.points[0]}}
+        </div>
+        <div *ngIf="field.points[1]==null  && currentPlayer==1 " class="leer" (click)="score(1, field)">
+          {{field.points[1]}}
+        </div>
+        <div *ngIf="field.points[1]==null  && currentPlayer==0 " class="leer">
+          {{field.points[1]}}
+        </div>
+        <div *ngIf="field.points[1]!=null" class="field2">
+          {{field.points[1]}}
+        </div>
       </div>
       <div *ngIf="field.sum">
         <div class="head1">{{field.title}}</div>
-        <div class="head2" id="f0-1">{{field.points[0]}}</div>
-        <div class="head2" id="f1-1">{{field.points[1]}}</div>
+        <div class="head2">{{field.points[0]}}</div>
+        <div class="head2">{{field.points[1]}}</div>
       </div>
     </div>
     <br>
-    <div>
-      <div class="dicebox">
-        <ng-container *ngFor="let dice of dices; let i = index">
-          <img class="dice" src="img/{{dice.val}}{{dice.fixed ? 'fixed' : '' }}.gif" (click)="toggleFixed(i)">&nbsp;
-        </ng-container>
-        <button *ngIf="rollNumber<3" (click)="rollDices()">Roll Dice</button>
-      </div>
+    <div *ngIf="!gameOver" class="dicebox">
+      <ng-container *ngFor="let dice of dices; let i = index">
+        <img class="dice" src="img/{{dice.val}}{{dice.fixed ? 'fixed' : '' }}.gif" (click)="toggleFixed(i)">&nbsp;
+      </ng-container><br/><br/>
+      <button *ngIf="rollNumber<3" (click)="rollDices()">Roll Dice</button>
     </div>
     <div *ngIf="gameOver">Game Over</div>
   </div>
