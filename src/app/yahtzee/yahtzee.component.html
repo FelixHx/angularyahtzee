@@ -9,7 +9,7 @@
               <img src="img/{{i+1}}.gif" width="16" height="16" /></ng-container></ng-container>
         </div>
         <div *ngIf="field.points[0]==null && currentPlayer==0" class="leer" (click)="score(0, field)">
-          x
+          {{field.optPoints[0]}}
         </div>
         <div *ngIf="field.points[0]==null && currentPlayer==1" class="leer">
         </div>
@@ -17,7 +17,7 @@
           {{field.points[0]}}
         </div>
         <div *ngIf="field.points[1]==null  && currentPlayer==1 " class="leer" (click)="score(1, field)">
-          x
+          {{field.optPoints[1]}}
         </div>
         <div *ngIf="field.points[1]==null  && currentPlayer==0 " class="leer">
         </div>
