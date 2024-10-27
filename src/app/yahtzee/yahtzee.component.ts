@@ -97,7 +97,16 @@ export class YahtzeeComponent {
 
     this.rollNumber++;
     this.points(this.dices);
-    this.yahtzeeRestService.callRest();
+
+    let queryString: string;
+    queryString = 'player=' + (this.currentPlayer + 1);
+    queryString += '&rollNumber=' + this.rollNumber;
+    queryString += '&lastRoll=';
+    this.dices.forEach(dice => {
+      queryString += dice.val;
+    });
+    queryString += '&f-1-0=4&f-2-2=6';
+    this.yahtzeeRestService.callRest(queryString);
   }
 };
 

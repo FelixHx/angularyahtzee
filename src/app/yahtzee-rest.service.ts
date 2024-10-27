@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Row } from './yahtzee/row';
-import { HttpClient, withFetch, provideHttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { ApplicationConfig } from '@angular/core';
 
 @Injectable({
@@ -10,23 +8,14 @@ import { ApplicationConfig } from '@angular/core';
 
 export class YahtzeeRestService {
 
-  callRest(): void {
+  callRest(queryString: string): void {
     console.log('callRest');
-    let url: string = 'https://dev.holderied.de/rest.php?player=1&rollNumber=2&f-1-0=4&f-2-2=6&lastRoll=66666';
+    let url: string = 'https://dev.holderied.de/rest.php?' + queryString;
+    ;
 
-    this.http.get<ApplicationConfig>(url).subscribe(config => {
-
-      console.log('hallo Welt' + ' ' + config + ' ');
-
-      for (const item of Object.keys(config)) {
-        console.log('Attribute: ' + item);
-      }
-      for (const item of Object.values(config)) {
-        console.log('Attribute: ' + item);
-      }
+    this.http.get<ApplicationConfig>(url).subscribe(probabilities => {
+      console.log(JSON.stringify({ probabilities}, null, 4));
     });
-
-
   }
 
   constructor(private http: HttpClient) {
