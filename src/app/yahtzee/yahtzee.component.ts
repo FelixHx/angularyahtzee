@@ -3,6 +3,7 @@ import { NgFor, NgIf, NgForOf } from '@angular/common';
 import { Row } from '../yahtzee/row';
 import { Dice } from '../yahtzee/dice';
 import { YahtzeeApiService } from '../yahtzee-api.service';
+import { YahtzeeRestService } from '../yahtzee-rest.service';
 
 @Component({
   selector: 'app-yahtzee',
@@ -17,7 +18,7 @@ export class YahtzeeComponent {
   round: number = 0;
   gameOver: boolean = false;
 
-  constructor(private yahtzeeApiService: YahtzeeApiService) {
+  constructor(private yahtzeeApiService: YahtzeeApiService, private yahtzeeRestService: YahtzeeRestService) {
     this.yahtzeeApiService.init();
     this.fields = this.yahtzeeApiService.getAll();
     this.rollDices();
@@ -96,6 +97,7 @@ export class YahtzeeComponent {
 
     this.rollNumber++;
     this.points(this.dices);
+    this.yahtzeeRestService.callRest();
   }
 };
 
