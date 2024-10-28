@@ -59,7 +59,7 @@ export class YahtzeeComponent {
   }
 
   rollNumber: number = 0;
- 
+
   dices: Dice[] = [
     { val: 0, fixed: false },
     { val: 0, fixed: false },
@@ -67,20 +67,22 @@ export class YahtzeeComponent {
     { val: 0, fixed: false },
     { val: 0, fixed: false }
   ];
-  
+
   toggleFixed(i: number): void {
+    console.log('toggleFixed ' + i);
     this.dices[i].fixed = !this.dices[i].fixed;
   }
 
   score(p: number, field: Row): void {
+    console.log('score');
     field.points[p] = field.optPoints[p];
+    this.currentPlayer = 1 - this.currentPlayer;
+    if (this.currentPlayer == 0) { this.round++ };
+    console.log("currentPlayer 0/1:" + this.currentPlayer);
+    console.log("round: " + this.round);
     this.rollNumber = 0;
     this.rollDices();
     this.fields = this.yahtzeeApiService.getAll();
-    this.currentPlayer = 1 - this.currentPlayer;
-    if (this.currentPlayer == 0) { this.round++ };
-    console.log("currentPlayer" + this.currentPlayer);
-    console.log("round" + this.round);
     this.gameOver = (this.round >= 13);
   }
 
@@ -89,6 +91,7 @@ export class YahtzeeComponent {
 
 
   rollDices(): void {
+    console.log('rollDices');
     if (this.rollNumber == 0) this.dices.forEach(function (value) { value.fixed = false; })
 
     this.dices.forEach(dice => {
@@ -99,6 +102,7 @@ export class YahtzeeComponent {
     this.points(this.dices);
 
     let queryString: string;
+    console.log('Zusammenbau des queryString this.currentPlayer 0/1: ' + this.currentPlayer);
     queryString = 'player=' + (this.currentPlayer + 1);
     queryString += '&rollNumber=' + this.rollNumber;
     queryString += '&lastRoll=';
@@ -106,6 +110,7 @@ export class YahtzeeComponent {
       queryString += dice.val;
     });
     queryString += '&f-1-0=4&f-2-2=6';
+    console.log('queryString: ' + queryString);
     this.yahtzeeRestService.callRest(queryString);
   }
 };
