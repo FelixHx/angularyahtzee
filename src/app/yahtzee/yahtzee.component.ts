@@ -69,17 +69,19 @@ export class YahtzeeComponent {
   ];
 
   toggleFixed(i: number): void {
-    console.log('toggleFixed ' + i);
+    //console.log('toggleFixed ' + i);
     this.dices[i].fixed = !this.dices[i].fixed;
   }
 
   score(p: number, field: Row): void {
     console.log('score');
+    // Schreibe Punkte
     field.points[p] = field.optPoints[p];
+    // Wechsle Spieler
     this.currentPlayer = 1 - this.currentPlayer;
+    // Zähle Runde hoch
     if (this.currentPlayer == 0) { this.round++ };
-    console.log("currentPlayer 0/1:" + this.currentPlayer);
-    console.log("round: " + this.round);
+    // Setze Wurf auf 0 
     this.rollNumber = 0;
     this.rollDices();
     this.fields = this.yahtzeeApiService.getAll();
@@ -88,7 +90,6 @@ export class YahtzeeComponent {
 
   randomDice(): number { return Math.floor((Math.random() * 6) + 1) };
   //randomDice(): number { return 4};
-
 
   rollDices(): void {
     console.log('rollDices');
@@ -102,14 +103,22 @@ export class YahtzeeComponent {
     this.points(this.dices);
 
     let queryString: string;
-    console.log('Zusammenbau des queryString this.currentPlayer 0/1: ' + this.currentPlayer);
-    queryString = 'player=' + (this.currentPlayer + 1);
+    queryString = 'player=' + this.currentPlayer;
     queryString += '&rollNumber=' + this.rollNumber;
     queryString += '&lastRoll=';
     this.dices.forEach(dice => {
       queryString += dice.val;
     });
-    queryString += '&f-1-0=4&f-2-2=6';
+    for (let i = 0; i < 6; i++) {
+      console.log(i);
+      if (this.fields[i].points[0] !== null) { queryString += '&f-0-' + i + '=' + this.fields[i].points[0]; };
+      if (this.fields[i].points[1] !== null) { queryString += '&f-1-' + i + '=' + this.fields[i].points[1]; };
+    }
+    for (let i = 9; i < 16; i++) {
+      console.log(i - 3);
+      if (this.fields[i].points[0] !== null) { queryString += '&f-0-' + (i - 3) + '=' + this.fields[i].points[0]; };
+      if (this.fields[i].points[1] !== null) { queryString += '&f-1-' + (i - 3) + '=' + this.fields[i].points[1]; };
+    }
     console.log('queryString: ' + queryString);
     this.yahtzeeRestService.callRest(queryString);
   }
