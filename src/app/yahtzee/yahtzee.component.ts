@@ -17,7 +17,7 @@ export class YahtzeeComponent {
   fields: Row[] = [];
   round: number = 0;
   gameOver: boolean = false;
-  comment: string ='';
+  comment: string = '';
 
   constructor(private yahtzeeApiService: YahtzeeApiService, private yahtzeeRestService: YahtzeeRestService) {
     this.yahtzeeApiService.init();
@@ -112,42 +112,35 @@ export class YahtzeeComponent {
       queryString += dice.val;
     });
     for (let i = 0; i < 6; i++) {
-      console.log(i);
       if (this.fields[i].points[0] !== null) { queryString += '&f-0-' + i + '=' + this.fields[i].points[0]; };
       if (this.fields[i].points[1] !== null) { queryString += '&f-1-' + i + '=' + this.fields[i].points[1]; };
     }
     for (let i = 9; i < 16; i++) {
-      console.log(i - 3);
       if (this.fields[i].points[0] !== null) { queryString += '&f-0-' + (i - 3) + '=' + this.fields[i].points[0]; };
       if (this.fields[i].points[1] !== null) { queryString += '&f-1-' + (i - 3) + '=' + this.fields[i].points[1]; };
     }
     console.log('queryString: ' + queryString);
-    console.log('Zurück ' + this.yahtzeeRestService.callRest(queryString));
-
 
     this.yahtzeeRestService.callRest(queryString).subscribe(probabilities => {
       let bestChoice: string = 'undefined';
       let maxProbability: number = -1;
       let bestField: number = -1;
-      console.log(JSON.stringify({ probabilities }, null, 4));
       Object.entries(probabilities).forEach(([key, value]) => {
-        //console.log(key + ' - ' + value) // key - value
-        //console.log(value) // key - value
-        //console.log(Number(value)) // key - value
         if ((key.match(/Field/) || key.match(/selection/)) && (Number(value) > maxProbability)) {
           maxProbability = Number(value);
           bestChoice = key;
-          console.log('bestChoice in Loop ' + bestChoice) // key - value
-        }
-        if (bestChoice.match(/Field/)) {
-          bestField = Number(bestChoice.substring(5));
-          if (bestField >= 6) { bestField += 3 };
-          this.comment = 'Write ' + this.fields[bestField].title;
-        }
-        if (bestChoice.match(/selection/)) {
-          this.comment = 'Keep ' + Number(bestChoice.substring(9));
         }
       })
+      this.fields[19].points[this.currentPlayer] = (0.5 + maxProbability) * 100;
+      this.fields[19].points[1 - this.currentPlayer] = 100 - (0.5 + maxProbability) * 100;
+      if (bestChoice.match(/Field/)) {
+        bestField = Number(bestChoice.substring(5));
+        if (bestField >= 6) { bestField += 3 };
+        this.comment = 'Write ' + this.fields[bestField].title;
+      }
+      if (bestChoice.match(/selection/)) {
+        this.comment = 'Keep ' + Number(bestChoice.substring(9));
+      }
     });
   }
 };

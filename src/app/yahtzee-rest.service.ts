@@ -14,7 +14,7 @@ export class YahtzeeRestService {
     ;
     return this.http.get(url);
   }
-
+  
   constructor(private http: HttpClient) {
   }
 
