@@ -17,6 +17,7 @@ export class YahtzeeComponent {
   fields: Row[] = [];
   round: number = 0;
   gameOver: boolean = false;
+  comment: string = 'undefined';
 
   constructor(private yahtzeeApiService: YahtzeeApiService, private yahtzeeRestService: YahtzeeRestService) {
     this.yahtzeeApiService.init();
@@ -120,7 +121,10 @@ export class YahtzeeComponent {
       if (this.fields[i].points[1] !== null) { queryString += '&f-1-' + (i - 3) + '=' + this.fields[i].points[1]; };
     }
     console.log('queryString: ' + queryString);
-    this.yahtzeeRestService.callRest(queryString);
+    console.log('Zurück '+ this.yahtzeeRestService.callRest(queryString));
+    
+//    this.comment = this.yahtzeeRestService.callRest(queryString); 
+
   }
 };
 

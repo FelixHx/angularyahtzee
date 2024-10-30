@@ -38,9 +38,7 @@
       </ng-container><br /><br />
       <button *ngIf="rollNumber<3" (click)="rollDices()">Roll Dice</button>
     </div>
-    <div *ngIf="gameOver">Game Over</div>
-  </div>
-  <div class="rightbox" id="auswahlen">
-    xxx Hallo Welt
+    <div *ngIf="!gameOver" class="dicebox">{{comment}}</div>
+    <div *ngIf="gameOver" class="dicebox">Game Over</div>
   </div>
 </div>
