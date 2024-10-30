@@ -17,7 +17,7 @@ export class YahtzeeComponent {
   fields: Row[] = [];
   round: number = 0;
   gameOver: boolean = false;
-  comment: string = 'undefined';
+  comment: string ='';
 
   constructor(private yahtzeeApiService: YahtzeeApiService, private yahtzeeRestService: YahtzeeRestService) {
     this.yahtzeeApiService.init();
@@ -94,6 +94,7 @@ export class YahtzeeComponent {
 
   rollDices(): void {
     console.log('rollDices');
+    this.comment = 'thinking ...'
     if (this.rollNumber == 0) this.dices.forEach(function (value) { value.fixed = false; })
 
     this.dices.forEach(dice => {
@@ -121,10 +122,33 @@ export class YahtzeeComponent {
       if (this.fields[i].points[1] !== null) { queryString += '&f-1-' + (i - 3) + '=' + this.fields[i].points[1]; };
     }
     console.log('queryString: ' + queryString);
-    console.log('Zurück '+ this.yahtzeeRestService.callRest(queryString));
-    
-//    this.comment = this.yahtzeeRestService.callRest(queryString); 
+    console.log('Zurück ' + this.yahtzeeRestService.callRest(queryString));
 
+
+    this.yahtzeeRestService.callRest(queryString).subscribe(probabilities => {
+      let bestChoice: string = 'undefined';
+      let maxProbability: number = -1;
+      let bestField: number = -1;
+      console.log(JSON.stringify({ probabilities }, null, 4));
+      Object.entries(probabilities).forEach(([key, value]) => {
+        //console.log(key + ' - ' + value) // key - value
+        //console.log(value) // key - value
+        //console.log(Number(value)) // key - value
+        if ((key.match(/Field/) || key.match(/selection/)) && (Number(value) > maxProbability)) {
+          maxProbability = Number(value);
+          bestChoice = key;
+          console.log('bestChoice in Loop ' + bestChoice) // key - value
+        }
+        if (bestChoice.match(/Field/)) {
+          bestField = Number(bestChoice.substring(5));
+          if (bestField >= 6) { bestField += 3 };
+          this.comment = 'Write ' + this.fields[bestField].title;
+        }
+        if (bestChoice.match(/selection/)) {
+          this.comment = 'Keep ' + Number(bestChoice.substring(9));
+        }
+      })
+    });
   }
 };
 
