@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 export class YahtzeeRestService {
 
   callRest(queryString: string): Observable<any> {
-    console.log('callRest');
+    //console.log('callRest');
     let url: string = 'https://dev.holderied.de/rest.php?' + queryString;
     ;
     return this.http.get(url);

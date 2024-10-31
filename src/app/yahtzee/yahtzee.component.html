@@ -38,6 +38,10 @@
     </p>
     <p><button *ngIf="rollNumber<3" (click)="rollDices()">Roll Dice</button></p>
   </div>
-  <div *ngIf="!gameOver" class="commentbox">{{comment}}</div>
-  <div *ngIf="gameOver" class="commentbox">Game Over</div>
+  <div>
+    <div class="footer"> </div>
+    <div *ngIf="!gameOver" class="commentbox">{{comment}}</div>
+    <div *ngIf="gameOver" class="commentbox">Game Over</div>
+    <div class="footer"><a href="https://holderied.de/yahtzee/" target="_blank">🛈</a></div>
+  </div>
 </div>

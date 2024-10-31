@@ -73,7 +73,7 @@ export class YahtzeeComponent {
   }
 
   score(p: number, field: Row): void {
-    console.log('score');
+    //console.log('score');
     // Schreibe Punkte
     field.points[p] = field.optPoints[p];
     // Wechsle Spieler
@@ -91,7 +91,7 @@ export class YahtzeeComponent {
   //randomDice(): number { return 4};
 
   rollDices(): void {
-    console.log('rollDices');
+    //console.log('rollDices');
     this.winningProbability = ['',''];
     this.comment = 'thinking ...'
     if (this.rollNumber == 0) this.dices.forEach(function (value) { value.fixed = false; })
@@ -118,7 +118,7 @@ export class YahtzeeComponent {
       if (this.fields[i].points[0] !== null) { queryString += '&f-0-' + (i - 3) + '=' + this.fields[i].points[0]; };
       if (this.fields[i].points[1] !== null) { queryString += '&f-1-' + (i - 3) + '=' + this.fields[i].points[1]; };
     }
-    console.log('queryString: ' + queryString);
+    //console.log('queryString: ' + queryString);
 
     this.yahtzeeRestService.callRest(queryString).subscribe(probabilities => {
       let bestChoice: string = 'undefined';
