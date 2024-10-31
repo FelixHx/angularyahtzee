@@ -18,6 +18,7 @@ export class YahtzeeComponent {
   round: number = 0;
   gameOver: boolean = false;
   comment: string = '';
+  winningProbability: string[] = ['',''];
 
   constructor(private yahtzeeApiService: YahtzeeApiService, private yahtzeeRestService: YahtzeeRestService) {
     this.yahtzeeApiService.init();
@@ -38,12 +39,9 @@ export class YahtzeeComponent {
     var maxHist = Math.max.apply(null, histogramm);
     //console.log(maxHist);
     for (let p of [0, 1]) {
-      this.fields[0].optPoints[p] = histogramm[0];
-      this.fields[1].optPoints[p] = histogramm[1] * 2;
-      this.fields[2].optPoints[p] = histogramm[2] * 3;
-      this.fields[3].optPoints[p] = histogramm[3] * 4;
-      this.fields[4].optPoints[p] = histogramm[4] * 5;
-      this.fields[5].optPoints[p] = histogramm[5] * 6;
+      for (let i = 0; i < 6; i++) {
+        this.fields[i].optPoints[p] = histogramm[i] * (i + 1);
+      };
       if (maxHist >= 3) this.fields[9].optPoints[p] = sum; else this.fields[9].optPoints[p] = 0;
       if (maxHist >= 4) this.fields[10].optPoints[p] = sum; else this.fields[10].optPoints[p] = 0;
       if (maxHist >= 3 && (histogramm.includes(3) && histogramm.includes(2) || maxHist == 5)) this.fields[11].optPoints[p] = 25; else this.fields[11].optPoints[p] = 0;
@@ -94,6 +92,7 @@ export class YahtzeeComponent {
 
   rollDices(): void {
     console.log('rollDices');
+    this.winningProbability = ['',''];
     this.comment = 'thinking ...'
     if (this.rollNumber == 0) this.dices.forEach(function (value) { value.fixed = false; })
 
@@ -131,8 +130,11 @@ export class YahtzeeComponent {
           bestChoice = key;
         }
       })
-      this.fields[19].points[this.currentPlayer] = (0.5 + maxProbability) * 100;
-      this.fields[19].points[1 - this.currentPlayer] = 100 - (0.5 + maxProbability) * 100;
+      this.winningProbability[this.currentPlayer] =  (Math.round((1+maxProbability) * 500) / 10).toFixed(1) + '%';
+      this.winningProbability[1-this.currentPlayer] =  (Math.round((1-maxProbability) * 500) / 10).toFixed(1) + '%';
+
+      //this.fields[19].points[] = Math.round((0.5 + maxProbability) * 1000) /10;
+      //this.fields[19].points[1 - this.currentPlayer] = 0;
       if (bestChoice.match(/Field/)) {
         bestField = Number(bestChoice.substring(5));
         if (bestField >= 6) { bestField += 3 };

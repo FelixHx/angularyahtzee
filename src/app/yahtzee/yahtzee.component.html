@@ -12,23 +12,23 @@
       </div>
       <div *ngIf="field.points[0]==null && currentPlayer==1" class="leer">
       </div>
-      <div *ngIf="field.points[0]!=null" class="field2">
-        {{field.points[0]}}
-      </div>
+      <div *ngIf="field.points[0]!=null" class="field2"> {{field.points[0]}} </div>
       <div *ngIf="field.points[1]==null  && currentPlayer==1 " class="leer" (click)="score(1, field)">
         {{field.optPoints[1]}}
       </div>
-      <div *ngIf="field.points[1]==null  && currentPlayer==0 " class="leer">
-      </div>
-      <div *ngIf="field.points[1]!=null" class="field2">
-        {{field.points[1]}}
-      </div>
+      <div *ngIf="field.points[1]==null  && currentPlayer==0 " class="leer"> </div>
+      <div *ngIf="field.points[1]!=null" class="field2"> {{field.points[1]}} </div>
     </div>
     <div *ngIf="field.sum">
       <div class="head1">{{field.title}}</div>
       <div class="head2">{{field.points[0]}}</div>
       <div class="head2">{{field.points[1]}}</div>
     </div>
+  </div>
+  <div>
+    <div class="field1">Winning Probability</div>
+    <div class="leer">{{winningProbability[0]}}</div>
+    <div class="leer">{{winningProbability[1]}}</div>
   </div>
   <div *ngIf="!gameOver" class="dicebox">
     <p>{{rollNumber}}. Roll &nbsp;&nbsp;

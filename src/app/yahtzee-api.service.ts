@@ -28,8 +28,7 @@ export class YahtzeeApiService {
       { title: "Chance", points: [null, null], optPoints: [null, null], sum: false },
       { title: "Total Lower", points: [null, null], optPoints: [null, null], sum: true },
       { title: "Total Upper", points: [null, null], optPoints: [null, null], sum: true },
-      { title: "Grand Total", points: [null, null], optPoints: [null, null], sum: true },
-      { title: "Winning Probability", points: [null, null], optPoints: [null, null], sum: true }
+      { title: "Grand Total", points: [null, null], optPoints: [null, null], sum: true }
     ]
   }
 

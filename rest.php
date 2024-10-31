@@ -46,23 +46,21 @@ $query = "-j+p1+-+-+-+-+-+-+-+-+-+-+-+-+-+p2+-+-+-+-+-+-+-+-+-+-+-+-+-+p1+3+2234
 $query = "-j+p1+";
 
 for ($field = 0; $field < 13; $field++) {
-    if ($p1[$field]) {
-        $query .= $p1[$field] . "+";
-    } else {
+    if (is_null($p1[$field])) {
         $query .= "-+";
-    }
-    ;
+    } else {
+        $query .= $p1[$field] . "+";
+    };
 }
 
 $query .= "p2+";
 
 for ($field = 0; $field < 13; $field++) {
-    if ($p2[$field]) {
-        $query .= $p2[$field] . "+";
-    } else {
+    if (is_null($p2[$field])) {
         $query .= "-+";
-    }
-    ;
+    } else {
+        $query .= $p2[$field] . "+";
+    };
 }
 
 $query .= "p" . ($player+1) . "+" . $rollNumber . "+" . $lastRoll;
