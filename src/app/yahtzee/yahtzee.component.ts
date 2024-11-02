@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { NgFor, NgIf, NgForOf } from '@angular/common';
 import { Row } from '../yahtzee/row';
 import { Dice } from '../yahtzee/dice';
-import { State } from '../yahtzee/state';
 import { YahtzeeApiService } from '../yahtzee-api.service';
 import { YahtzeeRestService } from '../yahtzee-rest.service';
 import { ActivatedRoute } from '@angular/router';
@@ -15,30 +14,45 @@ import { ActivatedRoute } from '@angular/router';
   styleUrl: './yahtzee.component.scss'
 })
 export class YahtzeeComponent {
-  currentState: State = new State;
+  currentPlayer: number = 0;
   fields: Row[] = [];
   round: number = 0;
   gameOver: boolean = false;
   comment: string = '';
   winningProbability: string[] = ['', ''];
+  rollNumber: number = 0;
 
   constructor(private yahtzeeApiService: YahtzeeApiService,
     private yahtzeeRestService: YahtzeeRestService,
-    private route: ActivatedRoute) {
-    console.log(route.toString);
+    private activatedRoute: ActivatedRoute) {
+    let validQuery: boolean = true;
+    this.yahtzeeApiService.init();
+    //    console.log(this.activatedRoute.queryParams);
+    this.activatedRoute.queryParams.subscribe(params => {
+      if (params['player']) this.currentPlayer = params['player'];
+      if (params['rollNumber']) this.rollNumber = params['rollNumber'];
+      if (params['lastRoll'])
+        for (let i = 0; i < 5; i++) {
+          this.dices[i] = { val: params['lastRoll'].substring(i, i + 1), fixed: false };
+        };
+      for (let i = 0; i < 13; i++) {
+        if (params['f-0-' + i]) {
+          console.log('f-0-' + i + ' ' + params['f-0-' + i])
+          if (i < 6) this.fields[i].points[0]  = params['f-0-' + i];
+          if (i >= 6) this.fields[i + 3].points[0] = params['f-0-' + i];
+        };
+        if (params['f-1-' + i]) {
+          console.log('f-1-' + i + ' ' + params['f-1-' + i])
+          if (i < 6) this.fields[i].points[1]  = params['f-1-' + i];
+          if (i >= 6) this.fields[i + 3].points[1] = params['f-1-' + i];
+        }
+      };
+    });
     this.yahtzeeApiService.init();
     this.fields = this.yahtzeeApiService.getAll();
-    this.rollDices();
+    //this.rollDices();
   };
 
-  ngOnInit(): void {
-    this.route.queryParams.subscribe((params) => {
-      console.log(params);
-      console.log(params['xxx']);
-    });
-  }
-
-  
 
   points(dices: Dice[]) {
     var sum = 0;
@@ -89,11 +103,11 @@ export class YahtzeeComponent {
     // Schreibe Punkte
     field.points[p] = field.optPoints[p];
     // Wechsle Spieler
-    this.currentState.player = 1 - this.currentState.player;
+    this.currentPlayer = 1 - this.currentPlayer;
     // Zähle Runde hoch
-    if (this.currentState.player == 0) { this.round++ };
+    if (this.currentPlayer == 0) { this.round++ };
     // Setze Wurf auf 0 
-    this.currentState.rollNumber = 0;
+    this.rollNumber = 0;
     this.rollDices();
     this.fields = this.yahtzeeApiService.getAll();
     this.gameOver = (this.round >= 13);
@@ -106,18 +120,18 @@ export class YahtzeeComponent {
     //console.log('rollDices');
     this.winningProbability = ['', ''];
     this.comment = 'thinking ...'
-    if (this.currentState.rollNumber == 0) this.dices.forEach(function (value) { value.fixed = false; })
+    if (this.rollNumber == 0) this.dices.forEach(function (value) { value.fixed = false; })
 
     this.dices.forEach(dice => {
       if (!dice.fixed) dice.val = this.randomDice();
     });
 
-    this.currentState.rollNumber++;
+    this.rollNumber++;
     this.points(this.dices);
 
     let queryString: string;
-    queryString = 'player=' + this.currentState.player;
-    queryString += '&rollNumber=' + this.currentState.rollNumber;
+    queryString = 'player=' + this.currentPlayer;
+    queryString += '&rollNumber=' + this.rollNumber;
     queryString += '&lastRoll=';
     this.dices.forEach(dice => {
       queryString += dice.val;
@@ -142,8 +156,8 @@ export class YahtzeeComponent {
           bestChoice = key;
         }
       })
-      this.winningProbability[this.currentState.player] = (Math.round((1 + maxProbability) * 500) / 10).toFixed(1) + '%';
-      this.winningProbability[1 - this.currentState.player] = (Math.round((1 - maxProbability) * 500) / 10).toFixed(1) + '%';
+      this.winningProbability[this.currentPlayer] = (Math.round((1 + maxProbability) * 500) / 10).toFixed(1) + '%';
+      this.winningProbability[1 - this.currentPlayer] = (Math.round((1 - maxProbability) * 500) / 10).toFixed(1) + '%';
 
       //this.fields[19].points[] = Math.round((0.5 + maxProbability) * 1000) /10;
       //this.fields[19].points[1 - this.currentPlayer] = 0;

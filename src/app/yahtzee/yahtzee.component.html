@@ -7,16 +7,16 @@
       <div class="field1">{{field.title}} <ng-container *ngIf="i<7"><ng-container *ngFor="let j of [1,2,3]">
             <img src="img/{{i+1}}.gif" width="16" height="16" /></ng-container></ng-container>
       </div>
-      <div *ngIf="field.points[0]==null && currentState.player==0" class="leer" (click)="score(0, field)">
+      <div *ngIf="field.points[0]==null && currentPlayer==0" class="leer" (click)="score(0, field)">
         {{field.optPoints[0]}}
       </div>
-      <div *ngIf="field.points[0]==null && currentState.player==1" class="leer">
+      <div *ngIf="field.points[0]==null && currentPlayer==1" class="leer">
       </div>
       <div *ngIf="field.points[0]!=null" class="field2"> {{field.points[0]}} </div>
-      <div *ngIf="field.points[1]==null  && currentState.player==1 " class="leer" (click)="score(1, field)">
+      <div *ngIf="field.points[1]==null  && currentPlayer==1 " class="leer" (click)="score(1, field)">
         {{field.optPoints[1]}}
       </div>
-      <div *ngIf="field.points[1]==null  && currentState.player==0 " class="leer"> </div>
+      <div *ngIf="field.points[1]==null  && currentPlayer==0 " class="leer"> </div>
       <div *ngIf="field.points[1]!=null" class="field2"> {{field.points[1]}} </div>
     </div>
     <div *ngIf="field.sum">
@@ -31,12 +31,12 @@
     <div class="leer">{{winningProbability[1]}}</div>
   </div>
   <div *ngIf="!gameOver" class="dicebox">
-    <p>{{currentState.rollNumber}}. Roll &nbsp;&nbsp;
+    <p>{{rollNumber}}. Roll &nbsp;&nbsp;
       <ng-container *ngFor="let dice of dices; let i = index">
         <img class="dice" src="img/{{dice.val}}{{dice.fixed ? 'fixed' : '' }}.gif" (click)="toggleFixed(i)">&nbsp;
       </ng-container>
     </p>
-    <p><button *ngIf="currentState.rollNumber<3" (click)="rollDices()">Roll Dice</button></p>
+    <p><button *ngIf="rollNumber<3" (click)="rollDices()">Roll Dice</button></p>
   </div>
   <div>
     <div class="footer"><a href="/?sss=yyy&xxx=Felix" target="_blank" alt="Permanent Link">P</a></div>
