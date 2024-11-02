@@ -1,9 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgFor, NgIf, NgForOf } from '@angular/common';
 import { Row } from '../yahtzee/row';
 import { Dice } from '../yahtzee/dice';
+import { State } from '../yahtzee/state';
 import { YahtzeeApiService } from '../yahtzee-api.service';
 import { YahtzeeRestService } from '../yahtzee-rest.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-yahtzee',
@@ -13,18 +15,30 @@ import { YahtzeeRestService } from '../yahtzee-rest.service';
   styleUrl: './yahtzee.component.scss'
 })
 export class YahtzeeComponent {
-  currentPlayer: number = 0;
+  currentState: State = new State;
   fields: Row[] = [];
   round: number = 0;
   gameOver: boolean = false;
   comment: string = '';
-  winningProbability: string[] = ['',''];
+  winningProbability: string[] = ['', ''];
 
-  constructor(private yahtzeeApiService: YahtzeeApiService, private yahtzeeRestService: YahtzeeRestService) {
+  constructor(private yahtzeeApiService: YahtzeeApiService,
+    private yahtzeeRestService: YahtzeeRestService,
+    private route: ActivatedRoute) {
+    console.log(route.toString);
     this.yahtzeeApiService.init();
     this.fields = this.yahtzeeApiService.getAll();
     this.rollDices();
   };
+
+  ngOnInit(): void {
+    this.route.queryParams.subscribe((params) => {
+      console.log(params);
+      console.log(params['xxx']);
+    });
+  }
+
+  
 
   points(dices: Dice[]) {
     var sum = 0;
@@ -57,8 +71,6 @@ export class YahtzeeComponent {
     }
   }
 
-  rollNumber: number = 0;
-
   dices: Dice[] = [
     { val: 0, fixed: false },
     { val: 0, fixed: false },
@@ -77,11 +89,11 @@ export class YahtzeeComponent {
     // Schreibe Punkte
     field.points[p] = field.optPoints[p];
     // Wechsle Spieler
-    this.currentPlayer = 1 - this.currentPlayer;
+    this.currentState.player = 1 - this.currentState.player;
     // Zähle Runde hoch
-    if (this.currentPlayer == 0) { this.round++ };
+    if (this.currentState.player == 0) { this.round++ };
     // Setze Wurf auf 0 
-    this.rollNumber = 0;
+    this.currentState.rollNumber = 0;
     this.rollDices();
     this.fields = this.yahtzeeApiService.getAll();
     this.gameOver = (this.round >= 13);
@@ -92,20 +104,20 @@ export class YahtzeeComponent {
 
   rollDices(): void {
     //console.log('rollDices');
-    this.winningProbability = ['',''];
+    this.winningProbability = ['', ''];
     this.comment = 'thinking ...'
-    if (this.rollNumber == 0) this.dices.forEach(function (value) { value.fixed = false; })
+    if (this.currentState.rollNumber == 0) this.dices.forEach(function (value) { value.fixed = false; })
 
     this.dices.forEach(dice => {
       if (!dice.fixed) dice.val = this.randomDice();
     });
 
-    this.rollNumber++;
+    this.currentState.rollNumber++;
     this.points(this.dices);
 
     let queryString: string;
-    queryString = 'player=' + this.currentPlayer;
-    queryString += '&rollNumber=' + this.rollNumber;
+    queryString = 'player=' + this.currentState.player;
+    queryString += '&rollNumber=' + this.currentState.rollNumber;
     queryString += '&lastRoll=';
     this.dices.forEach(dice => {
       queryString += dice.val;
@@ -130,8 +142,8 @@ export class YahtzeeComponent {
           bestChoice = key;
         }
       })
-      this.winningProbability[this.currentPlayer] =  (Math.round((1+maxProbability) * 500) / 10).toFixed(1) + '%';
-      this.winningProbability[1-this.currentPlayer] =  (Math.round((1-maxProbability) * 500) / 10).toFixed(1) + '%';
+      this.winningProbability[this.currentState.player] = (Math.round((1 + maxProbability) * 500) / 10).toFixed(1) + '%';
+      this.winningProbability[1 - this.currentState.player] = (Math.round((1 - maxProbability) * 500) / 10).toFixed(1) + '%';
 
       //this.fields[19].points[] = Math.round((0.5 + maxProbability) * 1000) /10;
       //this.fields[19].points[1 - this.currentPlayer] = 0;
