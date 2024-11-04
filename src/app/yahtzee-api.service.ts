@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Row } from './yahtzee/row';
+import { Row } from './row';
 
 @Injectable({
   providedIn: 'root'
