@@ -10,25 +10,25 @@ export class YahtzeeApiService {
 
   init() {
     this.fields = [
-      { title: "Aces", points: [null, null], optPoints: [null, null], sum: false },
-      { title: "Twos", points: [null, null], optPoints: [null, null], sum: false },
-      { title: "Threes", points: [null, null], optPoints: [null, null], sum: false },
-      { title: "Fours", points: [null, null], optPoints: [null, null], sum: false },
-      { title: "Fives", points: [null, null], optPoints: [null, null], sum: false },
-      { title: "Sixes", points: [null, null], optPoints: [null, null], sum: false },
-      { title: "Total", points: [null, null], optPoints: [null, null], sum: true },
-      { title: "Bonus", points: [null, null], optPoints: [null, null], sum: true },
-      { title: "Total Upper", points: [null, null], optPoints: [null, null], sum: true },
-      { title: "Three of a Kind", points: [null, null], optPoints: [null, null], sum: false },
-      { title: "Four of a Kind", points: [null, null], optPoints: [null, null], sum: false },
-      { title: "Full House", points: [null, null], optPoints: [null, null], sum: false },
-      { title: "Small Straight", points: [null, null], optPoints: [null, null], sum: false },
-      { title: "Large Straight", points: [null, null], optPoints: [null, null], sum: false },
-      { title: "Yahtzee", points: [null, null], optPoints: [null, null], sum: false },
-      { title: "Chance", points: [null, null], optPoints: [null, null], sum: false },
-      { title: "Total Lower", points: [null, null], optPoints: [null, null], sum: true },
-      { title: "Total Upper", points: [null, null], optPoints: [null, null], sum: true },
-      { title: "Grand Total", points: [null, null], optPoints: [null, null], sum: true }
+      { title: "Aces", points: [null, null], optPoints: [null, null], sumField: false },
+      { title: "Twos", points: [null, null], optPoints: [null, null], sumField: false },
+      { title: "Threes", points: [null, null], optPoints: [null, null], sumField: false },
+      { title: "Fours", points: [null, null], optPoints: [null, null], sumField: false },
+      { title: "Fives", points: [null, null], optPoints: [null, null], sumField: false },
+      { title: "Sixes", points: [null, null], optPoints: [null, null], sumField: false },
+      { title: "Total", points: [null, null], optPoints: [null, null], sumField: true },
+      { title: "Bonus", points: [null, null], optPoints: [null, null], sumField: true },
+      { title: "Total Upper", points: [null, null], optPoints: [null, null], sumField: true },
+      { title: "Three of a Kind", points: [null, null], optPoints: [null, null], sumField: false },
+      { title: "Four of a Kind", points: [null, null], optPoints: [null, null], sumField: false },
+      { title: "Full House", points: [null, null], optPoints: [null, null], sumField: false },
+      { title: "Small Straight", points: [null, null], optPoints: [null, null], sumField: false },
+      { title: "Large Straight", points: [null, null], optPoints: [null, null], sumField: false },
+      { title: "Yahtzee", points: [null, null], optPoints: [null, null], sumField: false },
+      { title: "Chance", points: [null, null], optPoints: [null, null], sumField: false },
+      { title: "Total Lower", points: [null, null], optPoints: [null, null], sumField: true },
+      { title: "Total Upper", points: [null, null], optPoints: [null, null], sumField: true },
+      { title: "Grand Total", points: [null, null], optPoints: [null, null], sumField: true }
     ]
   }
 

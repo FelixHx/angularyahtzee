@@ -3,7 +3,7 @@
     <div class="head2">Alice</div>
     <div class="head2">Bob</div>
     <div *ngFor="let field of fields; let i=index;">
-      <div *ngIf="!field.sum">
+      <div *ngIf="!field.sumField">
         <div class="field1">{{field.title}} <ng-container *ngIf="i<7"><ng-container *ngFor="let j of [1,2,3]">
               <img src="img/{{i+1}}.gif" width="16" height="16" /></ng-container></ng-container>
         </div>
@@ -19,7 +19,7 @@
         <div *ngIf="field.points[1]==null  && currentPlayer==0 " class="leer"> </div>
         <div *ngIf="field.points[1]!=null" class="field2"> {{field.points[1]}} </div>
       </div>
-      <div *ngIf="field.sum">
+      <div *ngIf="field.sumField">
         <div class="head1">{{field.title}}</div>
         <div class="head2">{{field.points[0]}}</div>
         <div class="head2">{{field.points[1]}}</div>

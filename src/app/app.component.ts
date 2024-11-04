@@ -64,12 +64,12 @@ export class AppComponent {
 
 
   points(dices: Dice[]) {
-    var sum = 0;
+    var sum: number = 0;
     var histogramm = [0, 0, 0, 0, 0, 0];
 
     dices.forEach(function (dice) {
       histogramm[dice.val - 1]++;
-      sum += dice.val;
+      sum = sum + Number(dice.val);
     })
     //console.log(sum);
 
@@ -81,16 +81,18 @@ export class AppComponent {
       };
       if (maxHist >= 3) this.fields[9].optPoints[p] = sum; else this.fields[9].optPoints[p] = 0;
       if (maxHist >= 4) this.fields[10].optPoints[p] = sum; else this.fields[10].optPoints[p] = 0;
-      if (maxHist >= 3 && (histogramm.includes(3) && histogramm.includes(2) || maxHist == 5)) this.fields[11].optPoints[p] = 25; else this.fields[11].optPoints[p] = 0;
+      if (maxHist >= 3 && (histogramm.includes(3) && histogramm.includes(2) || maxHist == 5)) this.fields[11].optPoints[p] = 25;
+      else this.fields[11].optPoints[p] = 0;
       if (
         (
           (histogramm[0] > 0 && histogramm[1] > 0 && histogramm[2] > 0 && histogramm[3] > 0) ||
           (histogramm[1] > 0 && histogramm[2] > 0 && histogramm[3] > 0 && histogramm[4] > 0) ||
           (histogramm[2] > 0 && histogramm[3] > 0 && histogramm[4] > 0 && histogramm[5] > 0)
         )) this.fields[12].optPoints[p] = 30; else this.fields[12].optPoints[p] = 0;
-      if (maxHist == 1 && histogramm[0] + histogramm[5] == 1) this.fields[13].optPoints[p] = 40; else this.fields[13].optPoints[p] = 0;
+      if (maxHist == 1 && histogramm[0] + histogramm[5] == 1) this.fields[13].optPoints[p] = 40;
+      else this.fields[13].optPoints[p] = 0;
       if (maxHist == 5) this.fields[14].optPoints[p] = 50; else this.fields[14].optPoints[p] = 0;
-      this.fields[15].optPoints[p] = sum;
+      this.fields[15].optPoints[p] = Number(sum);
     }
   }
 
