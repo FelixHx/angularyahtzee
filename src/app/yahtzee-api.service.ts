@@ -56,7 +56,7 @@ export class YahtzeeApiService {
       this.fields[16].points[p] = this.fields[8].points[p];
       this.fields[18].points[p] = Number(this.fields[16]?.points[p] || 0) + Number(this.fields[17]?.points[p] || 0);
     }
-    for (let i = 0; i < 19; i++) {
+    for (let i = 0; i < 0; i++) {
       console.log(i + ' ' + this.fields[i].title + ' '
         + this.fields[i].points[0] + ' ' + this.fields[i].optPoints[0] + ' '
         + this.fields[i].points[1] + ' ' + this.fields[i].optPoints[1]);
