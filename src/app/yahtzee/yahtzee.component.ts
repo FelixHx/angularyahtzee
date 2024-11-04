@@ -25,12 +25,22 @@ export class YahtzeeComponent {
   constructor(private yahtzeeApiService: YahtzeeApiService,
     private yahtzeeRestService: YahtzeeRestService,
     private activatedRoute: ActivatedRoute) {
-    let validQuery: boolean = true;
+    let stateLoaded: boolean = false;
     this.yahtzeeApiService.init();
-    //    console.log(this.activatedRoute.queryParams);
+    console.log(this.activatedRoute.queryParams);
+
     this.activatedRoute.queryParams.subscribe(params => {
-      if (params['player']) this.currentPlayer = params['player'];
-      if (params['rollNumber']) this.rollNumber = params['rollNumber'];
+
+
+
+
+      if (params['player']) {
+        this.currentPlayer = params['player'];
+        stateLoaded = true;
+      };
+      if (params['rollNumber']) {
+        this.rollNumber = params['rollNumber'];
+      };
       if (params['lastRoll'])
         for (let i = 0; i < 5; i++) {
           this.dices[i] = { val: params['lastRoll'].substring(i, i + 1), fixed: false };
@@ -38,19 +48,22 @@ export class YahtzeeComponent {
       for (let i = 0; i < 13; i++) {
         if (params['f-0-' + i]) {
           console.log('f-0-' + i + ' ' + params['f-0-' + i])
-          if (i < 6) this.fields[i].points[0]  = params['f-0-' + i];
+          if (i < 6) this.fields[i].points[0] = params['f-0-' + i];
           if (i >= 6) this.fields[i + 3].points[0] = params['f-0-' + i];
+          console.log(i + ' ' + this.fields[i + 3].points[0] + ' ' + this.fields[i + 3].title);
         };
         if (params['f-1-' + i]) {
           console.log('f-1-' + i + ' ' + params['f-1-' + i])
-          if (i < 6) this.fields[i].points[1]  = params['f-1-' + i];
+          if (i < 6) this.fields[i].points[1] = params['f-1-' + i];
           if (i >= 6) this.fields[i + 3].points[1] = params['f-1-' + i];
         }
       };
+
+      this.fields = this.yahtzeeApiService.getAll();
+      this.nextMove(!stateLoaded);
+
+
     });
-    this.yahtzeeApiService.init();
-    this.fields = this.yahtzeeApiService.getAll();
-    //this.rollDices();
   };
 
 
@@ -108,7 +121,7 @@ export class YahtzeeComponent {
     if (this.currentPlayer == 0) { this.round++ };
     // Setze Wurf auf 0 
     this.rollNumber = 0;
-    this.rollDices();
+    this.nextMove(true);
     this.fields = this.yahtzeeApiService.getAll();
     this.gameOver = (this.round >= 13);
   }
@@ -116,15 +129,17 @@ export class YahtzeeComponent {
   randomDice(): number { return Math.floor((Math.random() * 6) + 1) };
   //randomDice(): number { return 4};
 
-  rollDices(): void {
+  nextMove(rollDices: boolean): void {
     //console.log('rollDices');
     this.winningProbability = ['', ''];
     this.comment = 'thinking ...'
     if (this.rollNumber == 0) this.dices.forEach(function (value) { value.fixed = false; })
 
-    this.dices.forEach(dice => {
-      if (!dice.fixed) dice.val = this.randomDice();
-    });
+    if (rollDices) {
+      this.dices.forEach(dice => {
+        if (!dice.fixed) dice.val = this.randomDice();
+      });
+    }
 
     this.rollNumber++;
     this.points(this.dices);

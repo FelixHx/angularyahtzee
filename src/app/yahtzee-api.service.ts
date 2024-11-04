@@ -38,23 +38,28 @@ export class YahtzeeApiService {
       this.fields[7].points[p] = 0; // Bonus
       this.fields[8].points[p] = 0; // Total Upper
       this.fields[17].points[p] = 0; // Total Upper
-      this.fields[6].points[p] = (this.fields[0]?.points[p] || 0) // Aces
-        + (this.fields[1]?.points[p] || 0) // Twos
-        + (this.fields[2]?.points[p] || 0) // Threes
-        + (this.fields[3]?.points[p] || 0) // Fours
-        + (this.fields[4]?.points[p] || 0) // Fives
-        + (this.fields[5]?.points[p] || 0); // Sixes
+      this.fields[6].points[p] = Number(this.fields[0]?.points[p] || 0) // Aces
+        + Number(this.fields[1]?.points[p] || 0) // Twos
+        + Number(this.fields[2]?.points[p] || 0) // Threes
+        + Number(this.fields[3]?.points[p] || 0) // Fours
+        + Number(this.fields[4]?.points[p] || 0) // Fives
+        + Number(this.fields[5]?.points[p] || 0); // Sixes
       if ((this.fields[6]?.points[p] || 0) >= 63) this.fields[7].points[p] = 35;
-      this.fields[8].points[p] = (this.fields[6]?.points[p] || 0) + (this.fields[7]?.points[p] || 0);
-      this.fields[17].points[p] = (this.fields[9]?.points[p] || 0) // Three of a Kind
-        + (this.fields[10]?.points[p] || 0) // Four of a Kind
-        + (this.fields[11]?.points[p] || 0) // Full House
-        + (this.fields[12]?.points[p] || 0) // Small Street
-        + (this.fields[13]?.points[p] || 0) // Large Street
-        + (this.fields[14]?.points[p] || 0) // Yahtzee
-        + (this.fields[15]?.points[p] || 0); // Chance
+      this.fields[8].points[p] = Number(this.fields[6]?.points[p] || 0) + Number(this.fields[7]?.points[p] || 0);
+      this.fields[17].points[p] = Number(this.fields[9]?.points[p] || 0) // Three of a Kind
+        + Number(this.fields[10]?.points[p] || 0) // Four of a Kind
+        + Number(this.fields[11]?.points[p] || 0) // Full House
+        + Number(this.fields[12]?.points[p] || 0) // Small Street
+        + Number(this.fields[13]?.points[p] || 0) // Large Street
+        + Number(this.fields[14]?.points[p] || 0) // Yahtzee
+        + Number(this.fields[15]?.points[p] || 0); // Chance
       this.fields[16].points[p] = this.fields[8].points[p];
-      this.fields[18].points[p] = (this.fields[16]?.points[p] || 0) + (this.fields[17]?.points[p] || 0);
+      this.fields[18].points[p] = Number(this.fields[16]?.points[p] || 0) + Number(this.fields[17]?.points[p] || 0);
+    }
+    for (let i = 0; i < 19; i++) {
+      console.log(i + ' ' + this.fields[i].title + ' '
+        + this.fields[i].points[0] + ' ' + this.fields[i].optPoints[0] + ' '
+        + this.fields[i].points[1] + ' ' + this.fields[i].optPoints[1]);
     }
     return this.fields;
   }
