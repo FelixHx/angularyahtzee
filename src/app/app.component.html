@@ -39,7 +39,7 @@
       <p><button *ngIf="rollNumber<3" (click)="nextMove(true)">Roll Dice</button></p>
     </div>
     <div>
-      <div class="footer"><a href="/?player=1&rollNumber=1&lastRoll=32463&f-0-0=1&f-1-0=1&f-1-4=15&f-0-9=30&f-0-10=40" target="_blank" alt="Permanent Link">&nbsp;</a></div>
+      <div class="footer"><a href="/?{{queryString}}" alt="Permanent Link">Hallo</a></div>
       <div *ngIf="!gameOver" class="commentbox">{{comment}}</div>
       <div *ngIf="gameOver" class="commentbox">Game Over</div>
       <div class="footer"><a href="https://holderied.de/yahtzee/" target="_blank" alt="Info">🛈</a></div>

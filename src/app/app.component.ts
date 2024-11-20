@@ -21,6 +21,7 @@ export class AppComponent {
   comment: string = '';
   winningProbability: string[] = ['', ''];
   rollNumber: number = 0;
+  queryString: string = '';
 
   constructor(private yahtzeeApiService: YahtzeeApiService,
     private yahtzeeRestService: YahtzeeRestService,
@@ -55,8 +56,10 @@ export class AppComponent {
         }
       };
 
+
+      
       this.fields = this.yahtzeeApiService.getAll();
-      this.nextMove(!stateLoaded);
+      //this.nextMove(!stateLoaded);
 
 
     });
@@ -142,24 +145,23 @@ export class AppComponent {
     this.rollNumber++;
     this.points(this.dices);
 
-    let queryString: string;
-    queryString = 'player=' + this.currentPlayer;
-    queryString += '&rollNumber=' + this.rollNumber;
-    queryString += '&lastRoll=';
+    this.queryString = 'player=' + this.currentPlayer;
+    this.queryString += '&rollNumber=' + this.rollNumber;
+    this.queryString += '&lastRoll=';
     this.dices.forEach(dice => {
-      queryString += dice.val;
+      this.queryString += dice.val;
     });
     for (let i = 0; i < 6; i++) {
-      if (this.fields[i].points[0] !== null) { queryString += '&f-0-' + i + '=' + this.fields[i].points[0]; };
-      if (this.fields[i].points[1] !== null) { queryString += '&f-1-' + i + '=' + this.fields[i].points[1]; };
+      if (this.fields[i].points[0] !== null) { this.queryString += '&f-0-' + i + '=' + this.fields[i].points[0]; };
+      if (this.fields[i].points[1] !== null) { this.queryString += '&f-1-' + i + '=' + this.fields[i].points[1]; };
     }
     for (let i = 9; i < 16; i++) {
-      if (this.fields[i].points[0] !== null) { queryString += '&f-0-' + (i - 3) + '=' + this.fields[i].points[0]; };
-      if (this.fields[i].points[1] !== null) { queryString += '&f-1-' + (i - 3) + '=' + this.fields[i].points[1]; };
+      if (this.fields[i].points[0] !== null) { this.queryString += '&f-0-' + (i - 3) + '=' + this.fields[i].points[0]; };
+      if (this.fields[i].points[1] !== null) { this.queryString += '&f-1-' + (i - 3) + '=' + this.fields[i].points[1]; };
     }
-    //console.log('queryString: ' + queryString);
+    console.log('queryString: ' + this.queryString);
 
-    this.yahtzeeRestService.callRest(queryString).subscribe(probabilities => {
+    this.yahtzeeRestService.callRest(this.queryString).subscribe(probabilities => {
       let bestChoice: string = 'undefined';
       let maxProbability: number = -1;
       let bestField: number = -1;
